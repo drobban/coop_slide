@@ -17,4 +17,19 @@ defmodule CoopSlide.ShowsFixtures do
 
     slide
   end
+
+  @doc """
+  Generate a page.
+  """
+  def page_fixture(attrs \\ %{}) do
+    {:ok, page} =
+      attrs
+      |> Enum.into(%{
+        content: "some content",
+        order: 42
+      })
+      |> CoopSlide.Shows.create_page()
+
+    page
+  end
 end

@@ -1,4 +1,6 @@
-<h1>Show Slide</h1>
+<h1>
+  <%= @slide.name %>
+</h1>
 
 <%= if @live_action in [:edit] do %>
   <.modal return_to={Routes.slide_show_path(@socket, :show, @slide)}>
@@ -13,14 +15,9 @@
   </.modal>
 <% end %>
 
-<ul>
 
-  <li>
-    <strong>Name:</strong>
-    <%= @slide.name %>
-  </li>
-
-</ul>
-
-<span><%= live_patch "Edit", to: Routes.slide_show_path(@socket, :edit, @slide), class: "button" %></span> |
-<span><%= live_redirect "Back", to: Routes.slide_index_path(@socket, :index) %></span>
+<div class="btn-group">
+<%= live_patch "Add page", to: Routes.slide_show_path(@socket, :add, @slide), class: "btn" %>
+<%= live_patch "Edit", to: Routes.slide_show_path(@socket, :edit, @slide), class: "btn" %>
+<%= live_redirect "Back", to: Routes.slide_index_path(@socket, :index), class: "btn" %>
+</div>

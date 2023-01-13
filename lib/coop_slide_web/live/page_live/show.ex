@@ -1,4 +1,4 @@
-defmodule CoopSlideWeb.SlideLive.Show do
+defmodule CoopSlideWeb.PageLive.Show do
   use CoopSlideWeb, :live_view
 
   alias CoopSlide.Shows
@@ -13,10 +13,9 @@ defmodule CoopSlideWeb.SlideLive.Show do
     {:noreply,
      socket
      |> assign(:page_title, page_title(socket.assigns.live_action))
-     |> assign(:slide, Shows.get_slide!(id))}
+     |> assign(:page, Shows.get_page!(id))}
   end
 
-  defp page_title(:show), do: "Show Slide"
-  defp page_title(:edit), do: "Edit Slide"
-  defp page_title(:add), do: "Appending Slide with page"
+  defp page_title(:show), do: "Show Page"
+  defp page_title(:edit), do: "Edit Page"
 end

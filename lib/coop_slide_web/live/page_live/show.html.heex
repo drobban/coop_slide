@@ -1,0 +1,31 @@
+<h1>Show Page</h1>
+
+<%= if @live_action in [:edit] do %>
+  <.modal return_to={Routes.page_show_path(@socket, :show, @page)}>
+    <.live_component
+      module={CoopSlideWeb.PageLive.FormComponent}
+      id={@page.id}
+      title={@page_title}
+      action={@live_action}
+      page={@page}
+      return_to={Routes.page_show_path(@socket, :show, @page)}
+    />
+  </.modal>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Content:</strong>
+    <%= @page.content %>
+  </li>
+
+  <li>
+    <strong>Order:</strong>
+    <%= @page.order %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.page_show_path(@socket, :edit, @page), class: "button" %></span> |
+<span><%= live_redirect "Back", to: Routes.page_index_path(@socket, :index) %></span>

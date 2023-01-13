@@ -17,3 +17,8 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
   * Docs: https://hexdocs.pm/phoenix
   * Forum: https://elixirforum.com/c/phoenix-forum
   * Source: https://github.com/phoenixframework/phoenix
+  
+  
+## NPM deps
+npm i daisyui
+npm install --save @ckeditor/ckeditor5-build-decoupled-document
