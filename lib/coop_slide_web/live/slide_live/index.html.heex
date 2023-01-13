@@ -1,0 +1,39 @@
+<h1>Listing Slides</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <.modal return_to={Routes.slide_index_path(@socket, :index)}>
+    <.live_component
+      module={CoopSlideWeb.SlideLive.FormComponent}
+      id={@slide.id || :new}
+      title={@page_title}
+      action={@live_action}
+      slide={@slide}
+      return_to={Routes.slide_index_path(@socket, :index)}
+    />
+  </.modal>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="slides">
+    <%= for slide <- @slides do %>
+      <tr id={"slide-#{slide.id}"}>
+        <td><%= slide.name %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.slide_show_path(@socket, :show, slide) %></span>
+          <span><%= live_patch "Edit", to: Routes.slide_index_path(@socket, :edit, slide) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: slide.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Slide", to: Routes.slide_index_path(@socket, :new) %></span>
