@@ -122,3 +122,635 @@
   100% { opacity: 0; }
 }
 
+
+/*
+ * CKEditor 5 (v35.4.0) content styles.
+ * Generated on Fri, 13 Jan 2023 13:05:45 GMT.
+ * For more information, check out https://ckeditor.com/docs/ckeditor5/latest/installation/advanced/content-styles.html
+ */
+
+:root {
+    --ck-color-image-caption-background: hsl(0, 0%, 97%);
+    --ck-color-image-caption-text: hsl(0, 0%, 20%);
+    --ck-color-mention-background: hsla(341, 100%, 30%, 0.1);
+    --ck-color-mention-text: hsl(341, 100%, 30%);
+    --ck-color-table-caption-background: hsl(0, 0%, 97%);
+    --ck-color-table-caption-text: hsl(0, 0%, 20%);
+    --ck-highlight-marker-blue: hsl(201, 97%, 72%);
+    --ck-highlight-marker-green: hsl(120, 93%, 68%);
+    --ck-highlight-marker-pink: hsl(345, 96%, 73%);
+    --ck-highlight-marker-yellow: hsl(60, 97%, 73%);
+    --ck-highlight-pen-green: hsl(112, 100%, 27%);
+    --ck-highlight-pen-red: hsl(0, 85%, 49%);
+    --ck-image-style-spacing: 1.5em;
+    --ck-inline-image-style-spacing: calc(var(--ck-image-style-spacing) / 2);
+    --ck-todo-list-checkmark-size: 16px;
+}
+
+/* ckeditor5-basic-styles/theme/code.css */
+.ck-content code {
+    background-color: hsla(0, 0%, 78%, 0.3);
+    padding: .15em;
+    border-radius: 2px;
+}
+/* ckeditor5-block-quote/theme/blockquote.css */
+.ck-content blockquote {
+    overflow: hidden;
+    padding-right: 1.5em;
+    padding-left: 1.5em;
+    margin-left: 0;
+    margin-right: 0;
+    font-style: italic;
+    border-left: solid 5px hsl(0, 0%, 80%);
+}
+/* ckeditor5-block-quote/theme/blockquote.css */
+.ck-content[dir="rtl"] blockquote {
+    border-left: 0;
+    border-right: solid 5px hsl(0, 0%, 80%);
+}
+/* ckeditor5-font/theme/fontsize.css */
+.ck-content .text-tiny {
+    font-size: .7em;
+}
+/* ckeditor5-font/theme/fontsize.css */
+.ck-content .text-small {
+    font-size: .85em;
+}
+/* ckeditor5-font/theme/fontsize.css */
+.ck-content .text-big {
+    font-size: 1.4em;
+}
+/* ckeditor5-font/theme/fontsize.css */
+.ck-content .text-huge {
+    font-size: 1.8em;
+}
+/* ckeditor5-highlight/theme/highlight.css */
+.ck-content .marker-yellow {
+    background-color: var(--ck-highlight-marker-yellow);
+}
+/* ckeditor5-highlight/theme/highlight.css */
+.ck-content .marker-green {
+    background-color: var(--ck-highlight-marker-green);
+}
+/* ckeditor5-highlight/theme/highlight.css */
+.ck-content .marker-pink {
+    background-color: var(--ck-highlight-marker-pink);
+}
+/* ckeditor5-highlight/theme/highlight.css */
+.ck-content .marker-blue {
+    background-color: var(--ck-highlight-marker-blue);
+}
+/* ckeditor5-highlight/theme/highlight.css */
+.ck-content .pen-red {
+    color: var(--ck-highlight-pen-red);
+    background-color: transparent;
+}
+/* ckeditor5-highlight/theme/highlight.css */
+.ck-content .pen-green {
+    color: var(--ck-highlight-pen-green);
+    background-color: transparent;
+}
+/* ckeditor5-image/theme/image.css */
+.ck-content .image {
+    display: table;
+    clear: both;
+    text-align: center;
+    margin: 0.9em auto;
+    min-width: 50px;
+}
+/* ckeditor5-image/theme/image.css */
+.ck-content .image img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    min-width: 100%;
+}
+/* ckeditor5-image/theme/image.css */
+.ck-content .image-inline {
+    /*
+     * Normally, the .image-inline would have "display: inline-block" and "img { width: 100% }" (to follow the wrapper while resizing).;
+     * Unfortunately, together with "srcset", it gets automatically stretched up to the width of the editing root.
+     * This strange behavior does not happen with inline-flex.
+     */
+    display: inline-flex;
+    max-width: 100%;
+    align-items: flex-start;
+}
+/* ckeditor5-image/theme/image.css */
+.ck-content .image-inline picture {
+    display: flex;
+}
+/* ckeditor5-image/theme/image.css */
+.ck-content .image-inline picture,
+.ck-content .image-inline img {
+    flex-grow: 1;
+    flex-shrink: 1;
+    max-width: 100%;
+}
+/* ckeditor5-image/theme/imageresize.css */
+.ck-content .image.image_resized {
+    max-width: 100%;
+    display: block;
+    box-sizing: border-box;
+}
+/* ckeditor5-image/theme/imageresize.css */
+.ck-content .image.image_resized img {
+    width: 100%;
+}
+/* ckeditor5-image/theme/imageresize.css */
+.ck-content .image.image_resized > figcaption {
+    display: block;
+}
+/* ckeditor5-image/theme/imagestyle.css */
+.ck-content .image-style-block-align-left,
+.ck-content .image-style-block-align-right {
+    max-width: calc(100% - var(--ck-image-style-spacing));
+}
+/* ckeditor5-image/theme/imagestyle.css */
+.ck-content .image-style-align-left,
+.ck-content .image-style-align-right {
+    clear: none;
+}
+/* ckeditor5-image/theme/imagestyle.css */
+.ck-content .image-style-side {
+    float: right;
+    margin-left: var(--ck-image-style-spacing);
+    max-width: 50%;
+}
+/* ckeditor5-image/theme/imagestyle.css */
+.ck-content .image-style-align-left {
+    float: left;
+    margin-right: var(--ck-image-style-spacing);
+}
+/* ckeditor5-image/theme/imagestyle.css */
+.ck-content .image-style-align-center {
+    margin-left: auto;
+    margin-right: auto;
+}
+/* ckeditor5-image/theme/imagestyle.css */
+.ck-content .image-style-align-right {
+    float: right;
+    margin-left: var(--ck-image-style-spacing);
+}
+/* ckeditor5-image/theme/imagestyle.css */
+.ck-content .image-style-block-align-right {
+    margin-right: 0;
+    margin-left: auto;
+}
+/* ckeditor5-image/theme/imagestyle.css */
+.ck-content .image-style-block-align-left {
+    margin-left: 0;
+    margin-right: auto;
+}
+/* ckeditor5-image/theme/imagestyle.css */
+.ck-content p + .image-style-align-left,
+.ck-content p + .image-style-align-right,
+.ck-content p + .image-style-side {
+    margin-top: 0;
+}
+/* ckeditor5-image/theme/imagestyle.css */
+.ck-content .image-inline.image-style-align-left,
+.ck-content .image-inline.image-style-align-right {
+    margin-top: var(--ck-inline-image-style-spacing);
+    margin-bottom: var(--ck-inline-image-style-spacing);
+}
+/* ckeditor5-image/theme/imagestyle.css */
+.ck-content .image-inline.image-style-align-left {
+    margin-right: var(--ck-inline-image-style-spacing);
+}
+/* ckeditor5-image/theme/imagestyle.css */
+.ck-content .image-inline.image-style-align-right {
+    margin-left: var(--ck-inline-image-style-spacing);
+}
+/* ckeditor5-image/theme/imagecaption.css */
+.ck-content .image > figcaption {
+    display: table-caption;
+    caption-side: bottom;
+    word-break: break-word;
+    color: var(--ck-color-image-caption-text);
+    background-color: var(--ck-color-image-caption-background);
+    padding: .6em;
+    font-size: .75em;
+    outline-offset: -1px;
+}
+/* ckeditor5-language/theme/language.css */
+.ck-content span[lang] {
+    font-style: italic;
+}
+/* ckeditor5-list/theme/todolist.css */
+.ck-content .todo-list {
+    list-style: none;
+}
+/* ckeditor5-list/theme/todolist.css */
+.ck-content .todo-list li {
+    margin-bottom: 5px;
+}
+/* ckeditor5-list/theme/todolist.css */
+.ck-content .todo-list li .todo-list {
+    margin-top: 5px;
+}
+/* ckeditor5-list/theme/todolist.css */
+.ck-content .todo-list .todo-list__label > input {
+    -webkit-appearance: none;
+    display: inline-block;
+    position: relative;
+    width: var(--ck-todo-list-checkmark-size);
+    height: var(--ck-todo-list-checkmark-size);
+    vertical-align: middle;
+    border: 0;
+    left: -25px;
+    margin-right: -15px;
+    right: 0;
+    margin-left: 0;
+}
+/* ckeditor5-list/theme/todolist.css */
+.ck-content .todo-list .todo-list__label > input::before {
+    display: block;
+    position: absolute;
+    box-sizing: border-box;
+    content: '';
+    width: 100%;
+    height: 100%;
+    border: 1px solid hsl(0, 0%, 20%);
+    border-radius: 2px;
+    transition: 250ms ease-in-out box-shadow, 250ms ease-in-out background, 250ms ease-in-out border;
+}
+/* ckeditor5-list/theme/todolist.css */
+.ck-content .todo-list .todo-list__label > input::after {
+    display: block;
+    position: absolute;
+    box-sizing: content-box;
+    pointer-events: none;
+    content: '';
+    left: calc( var(--ck-todo-list-checkmark-size) / 3 );
+    top: calc( var(--ck-todo-list-checkmark-size) / 5.3 );
+    width: calc( var(--ck-todo-list-checkmark-size) / 5.3 );
+    height: calc( var(--ck-todo-list-checkmark-size) / 2.6 );
+    border-style: solid;
+    border-color: transparent;
+    border-width: 0 calc( var(--ck-todo-list-checkmark-size) / 8 ) calc( var(--ck-todo-list-checkmark-size) / 8 ) 0;
+    transform: rotate(45deg);
+}
+/* ckeditor5-list/theme/todolist.css */
+.ck-content .todo-list .todo-list__label > input[checked]::before {
+    background: hsl(126, 64%, 41%);
+    border-color: hsl(126, 64%, 41%);
+}
+/* ckeditor5-list/theme/todolist.css */
+.ck-content .todo-list .todo-list__label > input[checked]::after {
+    border-color: hsl(0, 0%, 100%);
+}
+/* ckeditor5-list/theme/todolist.css */
+.ck-content .todo-list .todo-list__label .todo-list__label__description {
+    vertical-align: middle;
+}
+/* ckeditor5-media-embed/theme/mediaembed.css */
+.ck-content .media {
+    clear: both;
+    margin: 0.9em 0;
+    display: block;
+    min-width: 15em;
+}
+/* ckeditor5-page-break/theme/pagebreak.css */
+.ck-content .page-break {
+    position: relative;
+    clear: both;
+    padding: 5px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+/* ckeditor5-page-break/theme/pagebreak.css */
+.ck-content .page-break::after {
+    content: '';
+    position: absolute;
+    border-bottom: 2px dashed hsl(0, 0%, 77%);
+    width: 100%;
+}
+/* ckeditor5-page-break/theme/pagebreak.css */
+.ck-content .page-break__label {
+    position: relative;
+    z-index: 1;
+    padding: .3em .6em;
+    display: block;
+    text-transform: uppercase;
+    border: 1px solid hsl(0, 0%, 77%);
+    border-radius: 2px;
+    font-family: Helvetica, Arial, Tahoma, Verdana, Sans-Serif;
+    font-size: 0.75em;
+    font-weight: bold;
+    color: hsl(0, 0%, 20%);
+    background: hsl(0, 0%, 100%);
+    box-shadow: 2px 2px 1px hsla(0, 0%, 0%, 0.15);
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+/* ckeditor5-table/theme/tablecaption.css */
+.ck-content .table > figcaption {
+    display: table-caption;
+    caption-side: top;
+    word-break: break-word;
+    text-align: center;
+    color: var(--ck-color-table-caption-text);
+    background-color: var(--ck-color-table-caption-background);
+    padding: .6em;
+    font-size: .75em;
+    outline-offset: -1px;
+}
+/* ckeditor5-table/theme/tablecolumnresize.css */
+.ck-content .table .ck-table-resized {
+    table-layout: fixed;
+}
+/* ckeditor5-table/theme/tablecolumnresize.css */
+.ck-content .table table {
+    overflow: hidden;
+}
+/* ckeditor5-table/theme/tablecolumnresize.css */
+.ck-content .table td,
+.ck-content .table th {
+    position: relative;
+}
+/* ckeditor5-table/theme/table.css */
+.ck-content .table {
+    margin: 0.9em auto;
+    display: table;
+}
+/* ckeditor5-table/theme/table.css */
+.ck-content .table table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    height: 100%;
+    border: 1px double hsl(0, 0%, 70%);
+}
+/* ckeditor5-table/theme/table.css */
+.ck-content .table table td,
+.ck-content .table table th {
+    min-width: 2em;
+    padding: .4em;
+    border: 1px solid hsl(0, 0%, 75%);
+}
+/* ckeditor5-table/theme/table.css */
+.ck-content .table table th {
+    font-weight: bold;
+    background: hsla(0, 0%, 0%, 5%);
+}
+/* ckeditor5-table/theme/table.css */
+.ck-content[dir="rtl"] .table th {
+    text-align: right;
+}
+/* ckeditor5-table/theme/table.css */
+.ck-content[dir="ltr"] .table th {
+    text-align: left;
+}
+/* ckeditor5-code-block/theme/codeblock.css */
+.ck-content pre {
+    padding: 1em;
+    color: hsl(0, 0%, 20.8%);
+    background: hsla(0, 0%, 78%, 0.3);
+    border: 1px solid hsl(0, 0%, 77%);
+    border-radius: 2px;
+    text-align: left;
+    direction: ltr;
+    tab-size: 4;
+    white-space: pre-wrap;
+    font-style: normal;
+    min-width: 200px;
+}
+/* ckeditor5-code-block/theme/codeblock.css */
+.ck-content pre code {
+    background: unset;
+    padding: 0;
+    border-radius: 0;
+}
+/* ckeditor5-horizontal-line/theme/horizontalline.css */
+.ck-content hr {
+    margin: 15px 0;
+    height: 4px;
+    background: hsl(0, 0%, 87%);
+    border: 0;
+}
+/* ckeditor5-list/theme/liststyles.css */
+.ck-content ol {
+    list-style-type: decimal;
+}
+/* ckeditor5-list/theme/liststyles.css */
+.ck-content ol ol {
+    list-style-type: lower-latin;
+}
+/* ckeditor5-list/theme/liststyles.css */
+.ck-content ol ol ol {
+    list-style-type: lower-roman;
+}
+/* ckeditor5-list/theme/liststyles.css */
+.ck-content ol ol ol ol {
+    list-style-type: upper-latin;
+}
+/* ckeditor5-list/theme/liststyles.css */
+.ck-content ol ol ol ol ol {
+    list-style-type: upper-roman;
+}
+/* ckeditor5-list/theme/liststyles.css */
+.ck-content ul {
+    list-style-type: circle;
+}
+/* ckeditor5-list/theme/liststyles.css */
+.ck-content ul ul {
+    list-style-type: disc;
+}
+/* ckeditor5-list/theme/liststyles.css */
+.ck-content ul ul ul {
+    list-style-type: square;
+}
+/* ckeditor5-list/theme/liststyles.css */
+.ck-content ul ul ul ul {
+    list-style-type: square;
+}
+/* ckeditor5-mention/theme/mention.css */
+.ck-content .mention {
+    background: var(--ck-color-mention-background);
+    color: var(--ck-color-mention-text);
+}
+@media print {
+    /* ckeditor5-page-break/theme/pagebreak.css */
+    .ck-content .page-break {
+        padding: 0;
+    }
+    /* ckeditor5-page-break/theme/pagebreak.css */
+    .ck-content .page-break::after {
+        display: none;
+    }
+}
+
+
+	.document-editor {
+		border: 1px solid var(--ck-color-base-border);
+		border-radius: var(--ck-border-radius);
+
+		/* Set vertical boundaries for the document editor. */
+		max-height: 700px;
+
+		/* This element is a flex container for easier rendering. */
+		display: flex;
+		flex-flow: column nowrap;
+	}
+
+	.document-editor__toolbar {
+		/* Make sure the toolbar container is always above the editable. */
+		z-index: 1;
+
+		/* Create the illusion of the toolbar floating over the editable. */
+		box-shadow: 0 0 5px hsla( 0,0%,0%,.2 );
+
+		/* Use the CKEditor CSS variables to keep the UI consistent. */
+		border-bottom: 1px solid var(--ck-color-toolbar-border);
+	}
+
+	/* Adjust the look of the toolbar inside of the container. */
+	.document-editor__toolbar .ck-toolbar {
+		border: 0;
+		border-radius: 0;
+	}
+
+	/* Make the editable container look like the inside of a native word processor app. */
+	.document-editor__editable-container {
+		padding: calc( 2 * var(--ck-spacing-large) );
+		background: var(--ck-color-base-foreground);
+
+		/* Make it possible to scroll the "page" of the edited content. */
+		overflow-y: scroll;
+	}
+
+	.document-editor__editable-container .document-editor__editable.ck-editor__editable {
+		/* Set the dimensions of the "page". */
+		width: 15.8cm;
+		min-height: 21cm;
+
+		/* Keep the "page" off the boundaries of the container. */
+		padding: 1cm 2cm 2cm;
+
+		border: 1px hsl( 0,0%,82.7% ) solid;
+		border-radius: var(--ck-border-radius);
+		background: white;
+
+		/* The "page" should cast a slight shadow (3D illusion). */
+		box-shadow: 0 0 5px hsla( 0,0%,0%,.1 );
+
+		/* Center the "page". */
+		margin: 0 auto;
+	}
+
+	/* Override the page's width in the "Examples" section which is wider. */
+	.main__content-wide .document-editor__editable-container .document-editor__editable.ck-editor__editable {
+		width: 18cm;
+	}
+
+	/* Set the default font for the "page" of the content. */
+	.document-editor .ck-content,
+	.document-editor .ck-heading-dropdown .ck-list .ck-button__label {
+		font: 16px/1.6 "Helvetica Neue", Helvetica, Arial, sans-serif;
+	}
+
+	/* Adjust the headings dropdown to host some larger heading styles. */
+	.document-editor .ck-heading-dropdown .ck-list .ck-button__label {
+		line-height: calc( 1.7 * var(--ck-line-height-base) * var(--ck-font-size-base) );
+		min-width: 6em;
+	}
+
+	/* Scale down all heading previews because they are way too big to be presented in the UI.
+	Preserve the relative scale, though. */
+	.document-editor .ck-heading-dropdown .ck-list .ck-heading_heading1 .ck-button__label,
+	.document-editor .ck-heading-dropdown .ck-list .ck-heading_heading2 .ck-button__label {
+		transform: scale(0.8);
+		transform-origin: left;
+	}
+
+	/* Set the styles for "Heading 1". */
+	.document-editor .ck-content h2,
+	.document-editor .ck-heading-dropdown .ck-heading_heading1 .ck-button__label {
+		font-size: 2.18em;
+		font-weight: normal;
+	}
+
+	.document-editor .ck-content h2 {
+		line-height: 1.37em;
+		padding-top: .342em;
+		margin-bottom: .142em;
+	}
+
+	/* Set the styles for "Heading 2". */
+	.document-editor .ck-content h3,
+	.document-editor .ck-heading-dropdown .ck-heading_heading2 .ck-button__label {
+		font-size: 1.75em;
+		font-weight: normal;
+		color: hsl( 203, 100%, 50% );
+	}
+
+	.document-editor .ck-heading-dropdown .ck-heading_heading2.ck-on .ck-button__label {
+		color: var(--ck-color-list-button-on-text);
+	}
+
+	/* Set the styles for "Heading 2". */
+	.document-editor .ck-content h3 {
+		line-height: 1.86em;
+		padding-top: .171em;
+		margin-bottom: .357em;
+	}
+
+	/* Set the styles for "Heading 3". */
+	.document-editor .ck-content h4,
+	.document-editor .ck-heading-dropdown .ck-heading_heading3 .ck-button__label {
+		font-size: 1.31em;
+		font-weight: bold;
+	}
+
+	.document-editor .ck-content h4 {
+		line-height: 1.24em;
+		padding-top: .286em;
+		margin-bottom: .952em;
+	}
+
+	/* Make the block quoted text serif with some additional spacing. */
+	.document-editor .ck-content blockquote {
+		font-family: Georgia, serif;
+		margin-left: calc( 2 * var(--ck-spacing-large) );
+		margin-right: calc( 2 * var(--ck-spacing-large) );
+	}
+
+	@media only screen and (max-width: 960px) {
+		/* Because on mobile 2cm paddings are to big. */
+		.document-editor__editable-container .document-editor__editable.ck-editor__editable {
+			padding: 1.5em;
+		}
+	}
+
+	@media only screen and (max-width: 1200px) {
+		.main__content-wide .document-editor__editable-container .document-editor__editable.ck-editor__editable {
+			width: 100%;
+		}
+	}
+
+	/* Style document editor a'ka Google Docs.*/
+	@media only screen and (min-width: 1360px) {
+		.main .main__content.main__content-wide {
+			padding-right: 0;
+		}
+	}
+
+	@media only screen and (min-width: 1600px) {
+		.main .main__content.main__content-wide {
+			width: 24cm;
+		}
+
+		.main .main__content.main__content-wide .main__content-inner {
+			width: auto;
+			margin: 0 50px;
+		}
+
+		/* Keep "page" look based on viewport width. */
+		.main__content-wide .document-editor__editable-container .document-editor__editable.ck-editor__editable {
+			width: 60%;
+		}
+	}

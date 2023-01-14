@@ -1,3 +1,4 @@
+
 <h1>
   <%= @slide.name %>
 </h1>
@@ -14,6 +15,27 @@
     />
   </.modal>
 <% end %>
+
+<div class="container min-w-full min-h-max" id="lala" phx-hook="Editor">
+  <div class="container">
+    <div id="toolbar-container"></div>
+  </div>
+  <div class="container prose min-w-full" style="height: 768px;" id="editor"></div>
+</div>
+
+<!-- <script type="module"> -->
+<!--   window.DecoupledEditor -->
+<!--     .create( document.querySelector( '#editor' ) ) -->
+<!--     .then( editor => { -->
+<!--         const toolbarContainer = document.querySelector( '#toolbar-container' ); -->
+
+<!--         toolbarContainer.appendChild( editor.ui.view.toolbar.element ); -->
+<!--     } ) -->
+<!--     .catch( error => { -->
+<!--         console.error( error ); -->
+<!--     } ); -->
+<!-- </script> -->
+
 
 
 <div class="btn-group">
