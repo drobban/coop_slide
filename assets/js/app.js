@@ -29,30 +29,34 @@ import {LiveSocket} from "phoenix_live_view"
 import topbar from "../vendor/topbar"
 
 
-import DecoupledEditor from "@ckeditor/ckeditor5-build-decoupled-document"
+import DecoupledEditor from "@ckeditor/ckeditor5-build-decoupled-document";
 
-let Hooks = {}
+let Hooks = {};
 Hooks.Editor = {
     mounted() {
-
+        this.el.style="display: none;";
+        this.target = this.el.getAttribute('for');
         DecoupledEditor
-            .create( document.querySelector( '#editor' ) )
+            .create( document.querySelector(`#${this.target}`) )
             .then( editor => {
-                const toolbarContainer = document.querySelector( '#toolbar-container' );
-
-                toolbarContainer.appendChild( editor.ui.view.toolbar.element );
-            } )
+                editor.model.document.on( 'change:data', () => {
+                    data = editor.getData();
+                    if ( data != this.el.value ) {
+                        // console.log( 'The data has changed!', data );
+                        this.el.value = data;
+                    }
+                });
+                document.querySelector(`#${this.target}_toolbar`).appendChild( editor.ui.view.toolbar.element );
+                this.editor = editor;
+                editor.setData(this.el.value);
+            })
             .catch( error => {
                 console.error( error );
-            } );
-
-
-        // this.el.addEventListener("input", e => {
-        //     let match = this.el.value.replace(/\D/g, "").match(/^(\d{3})(\d{3})(\d{4})$/)
-        //     if(match) {
-        //         this.el.value = `${match[1]}-${match[2]}-${match[3]}`
-        //     }
-        // })
+            });
+    },
+    updated() {
+        this.el.style="display: none;";
+        this.editor.setData(this.el.value);
     }
 }
 

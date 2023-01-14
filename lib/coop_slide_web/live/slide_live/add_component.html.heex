@@ -9,16 +9,16 @@
     phx-change="validate"
     phx-submit="save">
 
-    <%= label f, :content %>
-    <%= text_input f, :content %>
+    <%= textarea f, :content, phx_hook: "Editor", for: "document_editor" %>
     <%= error_tag f, :content %>
+    <div id="document_editor_toolbar" phx-update="ignore" />
+    <div id="document_editor" class="prose min-w-full" style="min-height: 70vh;" phx-update="ignore" />
 
-    <%= label f, :order %>
-    <%= number_input f, :order %>
-    <%= error_tag f, :order %>
+    <%= hidden_input f, :order %>
 
     <div>
       <%= submit "Save", phx_disable_with: "Saving..." %>
     </div>
   </.form>
+
 </div>

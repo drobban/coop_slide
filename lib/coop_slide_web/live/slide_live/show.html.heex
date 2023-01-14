@@ -16,26 +16,30 @@
   </.modal>
 <% end %>
 
-<div class="container min-w-full min-h-max" id="lala" phx-hook="Editor">
-  <div class="container">
-    <div id="toolbar-container"></div>
-  </div>
-  <div class="container prose min-w-full" style="height: 768px;" id="editor"></div>
-</div>
+<%= if @live_action in [:add] do %>
+  <!-- <.modal return_to={Routes.slide_show_path(@socket, :show, @slide)}> -->
+    <.live_component
+      module={CoopSlideWeb.SlideLive.AddComponent}
+      id={:new}
+      slide_id={@slide.id}
+      title={@page_title}
+      action={@live_action}
+      slide={@slide}
+      page={@page}
+      return_to={Routes.slide_show_path(@socket, :show, @slide)}
+    />
+  <!-- </.modal> -->
+<% end %>
 
-<!-- <script type="module"> -->
-<!--   window.DecoupledEditor -->
-<!--     .create( document.querySelector( '#editor' ) ) -->
-<!--     .then( editor => { -->
-<!--         const toolbarContainer = document.querySelector( '#toolbar-container' ); -->
 
-<!--         toolbarContainer.appendChild( editor.ui.view.toolbar.element ); -->
-<!--     } ) -->
-<!--     .catch( error => { -->
-<!--         console.error( error ); -->
-<!--     } ); -->
-<!-- </script> -->
 
+
+<!-- <div class="container min-w-full min-h-max" id="lala" phx-hook="Editor"> -->
+<!--   <div class="container"> -->
+<!--     <div id="toolbar-container"></div> -->
+<!--   </div> -->
+<!--   <div class="container prose min-w-full" style="height: 768px;" id="editor"></div> -->
+<!-- </div> -->
 
 
 <div class="btn-group">

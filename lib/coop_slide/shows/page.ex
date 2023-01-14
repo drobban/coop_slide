@@ -5,7 +5,7 @@ defmodule CoopSlide.Shows.Page do
   schema "pages" do
     field :content, :string
     field :order, :integer
-    belongs_to :slide, EctoAssoc.Slide
+    belongs_to :slide, CoopSlide.Shows.Slide
 
     timestamps()
   end
@@ -13,7 +13,7 @@ defmodule CoopSlide.Shows.Page do
   @doc false
   def changeset(page, attrs) do
     page
-    |> cast(attrs, [:content, :order, :slide])
-    |> validate_required([:content, :order, :slide])
+    |> cast(attrs, [:content, :order, :slide_id])
+    |> validate_required([:content, :order, :slide_id])
   end
 end
