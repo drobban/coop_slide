@@ -5,7 +5,7 @@ defmodule CoopSlideWeb.SlideLive.AddComponent do
 
   @impl true
   def update(%{page: page} = assigns, socket) do
-    changeset = Shows.change_page(page)
+    changeset = Shows.change_page(page, %{slide_id: assigns.slide.id})
 
     {:ok,
      socket
@@ -15,6 +15,7 @@ defmodule CoopSlideWeb.SlideLive.AddComponent do
 
   @impl true
   def handle_event("validate", %{"page" => page_params}, socket) do
+    IO.inspect(page_params)
     changeset =
       socket.assigns.page
       |> Shows.change_page(page_params)
@@ -24,6 +25,11 @@ defmodule CoopSlideWeb.SlideLive.AddComponent do
   end
 
   def handle_event("save", %{"page" => page_params}, socket) do
+    page_params =
+      page_params
+      |> Map.put("order", 1)
+    IO.inspect(page_params)
+    IO.inspect(socket.assigns.action)
     save_page(socket, socket.assigns.action, page_params)
   end
 
@@ -52,4 +58,17 @@ defmodule CoopSlideWeb.SlideLive.AddComponent do
         {:noreply, assign(socket, changeset: changeset)}
     end
   end
+  defp save_page(socket, :add, page_params) do
+    case Shows.create_page(page_params) do
+      {:ok, _page} ->
+        {:noreply,
+         socket
+         |> put_flash(:info, "Page created successfully")
+         |> push_redirect(to: socket.assigns.return_to)}
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        {:noreply, assign(socket, changeset: changeset)}
+    end
+  end
+
 end

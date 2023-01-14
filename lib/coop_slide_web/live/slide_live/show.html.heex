@@ -2,22 +2,23 @@
 <h1>
   <%= @slide.name %>
 </h1>
+<div class="grid grid-cols-5 gap-4">
+ <div class="col-span-1 ">
+   <div class="grid grid-cols-1 gap-4">
+     <%= for page <- @pages do %>
+      <div class="box-border border-4" style="width: 210px; height: 140px;">
+        <div id="parent" style="zoom: 0.2; -moz-transform: scale(0.2);" >
+          <div style="width: 1024px; height: 768px;">
+            <%= raw page.content %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+   </div>
+ </div>
+ <div class="col-span-4">
 
-<%= if @live_action in [:edit] do %>
-  <.modal return_to={Routes.slide_show_path(@socket, :show, @slide)}>
-    <.live_component
-      module={CoopSlideWeb.SlideLive.FormComponent}
-      id={@slide.id}
-      title={@page_title}
-      action={@live_action}
-      slide={@slide}
-      return_to={Routes.slide_show_path(@socket, :show, @slide)}
-    />
-  </.modal>
-<% end %>
-
-<%= if @live_action in [:add] do %>
-  <!-- <.modal return_to={Routes.slide_show_path(@socket, :show, @slide)}> -->
+   <%= if @live_action in [:add] do %>
     <.live_component
       module={CoopSlideWeb.SlideLive.AddComponent}
       id={:new}
@@ -28,11 +29,11 @@
       page={@page}
       return_to={Routes.slide_show_path(@socket, :show, @slide)}
     />
-  <!-- </.modal> -->
-<% end %>
+    <% end %>
 
 
-
+ </div>
+</div>
 
 <!-- <div class="container min-w-full min-h-max" id="lala" phx-hook="Editor"> -->
 <!--   <div class="container"> -->
@@ -44,6 +45,6 @@
 
 <div class="btn-group">
 <%= live_patch "Add page", to: Routes.slide_show_path(@socket, :add, @slide), class: "btn" %>
-<%= live_patch "Edit", to: Routes.slide_show_path(@socket, :edit, @slide), class: "btn" %>
+<!-- <%= live_patch "Edit", to: Routes.slide_show_path(@socket, :edit, @slide), class: "btn" %> -->
 <%= live_redirect "Back", to: Routes.slide_index_path(@socket, :index), class: "btn" %>
 </div>

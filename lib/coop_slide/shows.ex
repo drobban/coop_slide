@@ -133,6 +133,10 @@ defmodule CoopSlide.Shows do
   """
   def get_page!(id), do: Repo.get!(Page, id)
 
+  def get_slide_pages(id) do
+    Repo.all(from p in Page, where: p.slide_id == ^id)
+  end
+
   @doc """
   Creates a page.
 

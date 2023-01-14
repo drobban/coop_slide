@@ -42,7 +42,7 @@ Hooks.Editor = {
                 editor.model.document.on( 'change:data', () => {
                     data = editor.getData();
                     if ( data != this.el.value ) {
-                        // console.log( 'The data has changed!', data );
+                        console.log( 'The data has changed!', data );
                         this.el.value = data;
                     }
                 });

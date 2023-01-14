@@ -6,6 +6,7 @@ defmodule CoopSlideWeb.SlideLive.Show do
 
   @impl true
   def mount(_params, _session, socket) do
+
     socket =
       socket
       |> assign(:page, %Page{})
@@ -14,8 +15,12 @@ defmodule CoopSlideWeb.SlideLive.Show do
 
   @impl true
   def handle_params(%{"id" => id}, _, socket) do
+    pages = Shows.get_slide_pages(id)
+    IO.inspect(pages)
+
     {:noreply,
      socket
+     |> assign(:pages, pages)
      |> assign(:page_title, page_title(socket.assigns.live_action))
      |> assign(:slide, Shows.get_slide!(id))}
   end
