@@ -21,4 +21,5 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
   
 ## NPM deps
 npm i daisyui
-npm install --save @ckeditor/ckeditor5-build-decoupled-document
+npm install --save @ckeditor/ckeditor5-build-classic
+npm install --save @ckeditor/ckeditor5-highlight

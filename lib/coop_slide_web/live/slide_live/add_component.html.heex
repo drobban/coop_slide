@@ -7,16 +7,19 @@
     phx-change="validate"
     phx-submit="save">
 
-    <%= textarea f, :content, phx_hook: "Editor", for: "document_editor" %>
+    <%= textarea f, :content, phx_hook: "Editor", for: "document_editor", value: @page.content, style: "display: none;" %>
     <%= error_tag f, :content %>
-    <div id="document_editor_toolbar" phx-update="ignore" />
-    <div id="document_editor" class="prose min-w-full" style="height: 70vh; margin-bottom: 1em;" phx-update="ignore" />
 
-    <%= hidden_input f, :order %>
-    <%= hidden_input f, :slide_id %>
+    <div class="box-border border-2">
+      <div id="document_editor_toolbar" phx-update="ignore" />
+      <div id="document_editor" class="prose min-w-full ck ck-content ck-editor__editable ck-rounded-corners ck-editor__editable_inline" style="height: 72vh; margin-bottom: 1em;" phx-update="ignore" />
+    </div>
+
+    <%= hidden_input f, :order, value: @page.order %>
+    <%= hidden_input f, :slide_id, value: @page.slide_id %>
 
       <!-- <%= submit "Save", phx_disable_with: "Saving..." %> -->
-    <button type="submit" class="btn btn-square btn-outline btn-primary">
+    <button type="submit" class="btn btn-square btn-outline btn-primary" style="margin-top: 1em;">
       Save
     </button>
   </.form>

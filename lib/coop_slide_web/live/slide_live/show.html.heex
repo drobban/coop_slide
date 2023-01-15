@@ -6,13 +6,16 @@
  <div class="col-span-1 ">
    <div class="grid grid-cols-1 gap-4">
      <%= for page <- @pages do %>
-      <div class="box-border border-4" style="width: 210px; height: 140px;">
-        <div id="parent" style="zoom: 0.2; -moz-transform: scale(0.2);" >
-          <div style="width: 1024px; height: 768px;">
+      <%= live_patch to: Routes.slide_show_path(@socket, :edit_page, @slide, page.id) do %>
+      <div class="box-border border-4" style="width: 215px; height: 140px;" id={"link_#{page.id}"}>
+        <div id={"parent_#{page.id}"} style="zoom: 0.2; -moz-transform: scale(0.2);  overflow-y: hidden;" >
+          <div style="width: 800px; height: 700px; word-wrap: break-word;" class="prose min-w-full ck ck-content ck-editor__editable ck-rounded-corners ck-editor__editable_inline">
+
             <%= raw page.content %>
           </div>
         </div>
       </div>
+      <% end %>
     <% end %>
    </div>
  </div>
@@ -29,8 +32,19 @@
       page={@page}
       return_to={Routes.slide_show_path(@socket, :show, @slide)}
     />
-    <% end %>
-
+  <% end %>
+  <%= if @live_action in [:edit_page] do %>
+    <.live_component
+      module={CoopSlideWeb.SlideLive.AddComponent}
+      id={@page.id}
+      slide_id={@slide.id}
+      title={@page_title}
+      action={@live_action}
+      slide={@slide}
+      page={@page}
+      return_to={Routes.slide_show_path(@socket, :edit_page, @slide, @page.id)}
+    />
+  <% end %>
 
  </div>
 </div>

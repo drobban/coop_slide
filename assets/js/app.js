@@ -29,12 +29,15 @@ import {LiveSocket} from "phoenix_live_view"
 import topbar from "../vendor/topbar"
 
 
-import DecoupledEditor from "@ckeditor/ckeditor5-build-decoupled-document";
+// import DecoupledEditor from "@ckeditor/ckeditor5-build-decoupled-document";
+import DecoupledEditor from "ckeditor5-custom-build";
+// import ClassicEditor from "@vndywhat/ckeditor5-build-classic-full-with-base64-upload-and-spoiler";
+// import Base64UploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/base64uploadadapter';
+
 
 let Hooks = {};
 Hooks.Editor = {
     mounted() {
-        this.el.style="display: none;";
         this.target = this.el.getAttribute('for');
         DecoupledEditor
             .create( document.querySelector(`#${this.target}`) )
@@ -46,6 +49,10 @@ Hooks.Editor = {
                         this.el.value = data;
                     }
                 });
+                // editor.model.document.on( 'change:data', () => {
+                //     data = editor.getData();
+                //     this.el.value = data;
+                // });
                 document.querySelector(`#${this.target}_toolbar`).appendChild( editor.ui.view.toolbar.element );
                 this.editor = editor;
                 editor.setData(this.el.value);
@@ -55,8 +62,28 @@ Hooks.Editor = {
             });
     },
     updated() {
-        this.el.style="display: none;";
-        this.editor.setData(this.el.value);
+
+        // Problem. When content in textarea changes, updated hook gets fired.
+        // when fired, editor needs to get new data.
+        // This causes problem if the editor isnt available for some reason.
+        setTimeout(() => {
+            this.editor.setData(this.el.value);
+        }, 200);
+
+        // if (this.editor.state == "ready") {
+        //     console.log(this.el.value);
+        //     this.editor.setData(data);
+        // }
+        //  else {
+             // this.editor.on("ready",
+             //                event => {
+             //                    // event.editor.setData(data);
+             //                    console.log("okej")
+             //                });
+        // }
+
+        // this.editor.setData(this.el.value);
+        // editor.setData(this.el.value);
     }
 }
 
@@ -69,7 +96,6 @@ window.addEventListener("phx:page-loading-start", info => topbar.show())
 window.addEventListener("phx:page-loading-stop", info => topbar.hide())
 
 
-window.DecoupledEditor = DecoupledEditor
 // connect if there are any LiveViews on the page
 liveSocket.connect()
 

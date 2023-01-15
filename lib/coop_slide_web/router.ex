@@ -23,6 +23,7 @@ defmodule CoopSlideWeb.Router do
     live "/slides/:id/edit", SlideLive.Index, :edit
 
     live "/slides/:id", SlideLive.Show, :show
+    live "/slides/:id/page/:page_id", SlideLive.Show, :edit_page
     live "/slides/:id/show/add", SlideLive.Show, :add
     live "/slides/:id/show/edit", SlideLive.Show, :edit
 
@@ -32,7 +33,6 @@ defmodule CoopSlideWeb.Router do
 
     live "/pages/:id", PageLive.Show, :show
     live "/pages/:id/show/edit", PageLive.Show, :edit
-
   end
 
   # Other scopes may use custom stacks.
