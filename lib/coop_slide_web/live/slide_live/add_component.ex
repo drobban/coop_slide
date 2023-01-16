@@ -27,6 +27,7 @@ defmodule CoopSlideWeb.SlideLive.AddComponent do
     page_params =
       page_params
       |> Map.put("order", 1)
+      |> Map.put("slide_id", socket.assigns.slide.id)
 
     save_page(socket, socket.assigns.action, page_params)
   end
@@ -58,7 +59,8 @@ defmodule CoopSlideWeb.SlideLive.AddComponent do
   end
 
   defp save_page(socket, :add, page_params) do
-    case Shows.create_page(page_params) do
+    IO.inspect("WHAT HAPPENS")
+    result = case Shows.create_page(page_params) do
       {:ok, _page} ->
         {:noreply,
          socket
@@ -68,6 +70,8 @@ defmodule CoopSlideWeb.SlideLive.AddComponent do
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, changeset: changeset)}
     end
+    IO.inspect(result)
+    result
   end
 
   defp save_page(socket, :edit_page, page_params) do

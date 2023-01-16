@@ -18,7 +18,6 @@
 //     import "some-package"
 //
 
-
 // Include phoenix_html to handle method=PUT/DELETE in forms and buttons.
 import "phoenix_html"
 
@@ -30,7 +29,8 @@ import topbar from "../vendor/topbar"
 
 
 // import DecoupledEditor from "@ckeditor/ckeditor5-build-decoupled-document";
-import DecoupledEditor from "ckeditor5-custom-build";
+// import DecoupledEditor from "ckeditor5-custom-build";
+import {Jodit} from "jodit/build/jodit.es2018.min.js"
 // import ClassicEditor from "@vndywhat/ckeditor5-build-classic-full-with-base64-upload-and-spoiler";
 // import Base64UploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/base64uploadadapter';
 
@@ -39,51 +39,26 @@ let Hooks = {};
 Hooks.Editor = {
     mounted() {
         this.target = this.el.getAttribute('for');
-        DecoupledEditor
-            .create( document.querySelector(`#${this.target}`) )
-            .then( editor => {
-                editor.model.document.on( 'change:data', () => {
-                    data = editor.getData();
-                    if ( data != this.el.value ) {
-                        console.log( 'The data has changed!', data );
-                        this.el.value = data;
-                    }
-                });
-                // editor.model.document.on( 'change:data', () => {
-                //     data = editor.getData();
-                //     this.el.value = data;
-                // });
-                document.querySelector(`#${this.target}_toolbar`).appendChild( editor.ui.view.toolbar.element );
-                this.editor = editor;
-                editor.setData(this.el.value);
-            })
-            .catch( error => {
-                console.error( error );
-            });
+        const editor = Jodit.make(`#${this.target}`, {
+            "minHeight": 768,
+            "maxHeight": 768,
+            "minWidth": 1024,
+            "uploader": {
+                "insertImageAsBase64URI": true
+            }
+        });
+        editor.s.focus();
+        editor.s.insertHTML(this.el.value);
+        editor.e.on('change', () => {
+            if ( editor.value !== this.el.value ) {
+                this.el.value = editor.value;
+            }
+        });
+        this.editor = editor;
     },
     updated() {
-
-        // Problem. When content in textarea changes, updated hook gets fired.
-        // when fired, editor needs to get new data.
-        // This causes problem if the editor isnt available for some reason.
-        setTimeout(() => {
-            this.editor.setData(this.el.value);
-        }, 200);
-
-        // if (this.editor.state == "ready") {
-        //     console.log(this.el.value);
-        //     this.editor.setData(data);
-        // }
-        //  else {
-             // this.editor.on("ready",
-             //                event => {
-             //                    // event.editor.setData(data);
-             //                    console.log("okej")
-             //                });
-        // }
-
-        // this.editor.setData(this.el.value);
-        // editor.setData(this.el.value);
+        this.editor.s.focus();
+        this.editor.setEditorValue(this.el.value);
     }
 }
 
@@ -104,3 +79,5 @@ liveSocket.connect()
 // >> liveSocket.enableLatencySim(1000)  // enabled for duration of browser session
 // >> liveSocket.disableLatencySim()
 window.liveSocket = liveSocket
+
+window.Jodit = Jodit
