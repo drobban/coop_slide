@@ -37,6 +37,19 @@ defmodule CoopSlideWeb.SlideLive.Show do
      |> assign(:slide, Shows.get_slide!(id))}
   end
 
+  @impl true
+  def handle_event("delete", %{"id" => id}, socket) do
+    page = Shows.get_page!(id)
+    slide = socket.assigns.slide
+    {:ok, _} = Shows.delete_page(page)
+
+    {:noreply,
+     socket
+     |> assign(:pages, Shows.get_slide_pages(slide.id))
+     |> push_redirect(to: CoopSlideWeb.Router.Helpers.slide_show_path(CoopSlideWeb.Endpoint, :show, slide))
+     }
+  end
+
   defp apply_action(socket, :add, %{"id" => id}) do
     socket
     |> assign(:page_title, "Edit Slide")

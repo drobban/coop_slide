@@ -22,3 +22,6 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
 ## NPM deps
 npm i daisyui
 npm install --save jodit
+
+## GFX deps
+https://heroicons.dev/

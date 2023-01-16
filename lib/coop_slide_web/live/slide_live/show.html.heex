@@ -1,21 +1,54 @@
+<div class="prose">
+  <h1>
+    <%= @slide.name %>
+  </h1>
+</div>
 
-<h1>
-  <%= @slide.name %>
-</h1>
 <div class="grid grid-cols-5 gap-4">
  <div class="col-span-1 ">
-   <div class="grid grid-cols-1 gap-4">
+   <div class="grid grid-cols-1 gap-10">
      <%= for page <- @pages do %>
-      <%= live_patch to: Routes.slide_show_path(@socket, :edit_page, @slide, page.id) do %>
-      <div class="box-border border-4" style="width: 215px; height: 140px;" id={"link_#{page.id}"}>
-        <div id={"parent_#{page.id}"} style="zoom: 0.2; -moz-transform: scale(0.2);  overflow-y: hidden;" >
-          <div style="width: 800px; height: 700px; word-wrap: break-word;" class="prose min-w-full ck ck-content ck-editor__editable ck-rounded-corners ck-editor__editable_inline">
 
-            <%= raw page.content %>
-          </div>
-        </div>
-      </div>
-      <% end %>
+         <div class="indicator">
+           <div class="indicator-item indicator-top indicator-end">
+             <button class="btn btn-xs btn-square btn-warning" phx-click="delete" phx-value-id={page.id}>
+               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+               </svg>
+             </button>
+           </div>
+
+           <div class="indicator-item indicator-middle indicator-start">
+             <button class="btn btn-xs btn-square btn-primary">
+               <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                 <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5L12 3m0 0l7.5 7.5M12 3v18"></path>
+               </svg>
+             </button>
+           </div>
+
+           <div class="indicator-item indicator-middle indicator-end">
+             <button class="btn btn-xs btn-square btn-primary">
+               <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                 <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"></path>
+               </svg>
+             </button>
+           </div>
+
+           <div class="card" style="width: 250px;">
+
+               <%= live_patch to: Routes.slide_show_path(@socket, :edit_page, @slide, page.id) do %>
+               <div class="box box-border border-2" style="width: 100%;" id={"link_#{page.id}"}>
+                 <div id={"parent_#{page.id}"} style="zoom: 0.2; -moz-transform: scale(0.2);  overflow-y: hidden;" >
+                   <div style="width: 1024px; height: 768px; word-wrap: break-word;" class="prose min-w-full ck ck-content ck-editor__editable ck-rounded-corners ck-editor__editable_inline">
+
+                     <%= raw page.content %>
+                   </div>
+                 </div>
+               </div>
+               <% end %>
+
+           </div>
+         </div>
     <% end %>
    </div>
  </div>
@@ -48,17 +81,8 @@
 
  </div>
 </div>
-
-<!-- <div class="container min-w-full min-h-max" id="lala" phx-hook="Editor"> -->
-<!--   <div class="container"> -->
-<!--     <div id="toolbar-container"></div> -->
-<!--   </div> -->
-<!--   <div class="container prose min-w-full" style="height: 768px;" id="editor"></div> -->
-<!-- </div> -->
-
-
 <div class="btn-group">
-<%= live_patch "Add page", to: Routes.slide_show_path(@socket, :add, @slide), class: "btn" %>
-<!-- <%= live_patch "Edit", to: Routes.slide_show_path(@socket, :edit, @slide), class: "btn" %> -->
-<%= live_redirect "Back", to: Routes.slide_index_path(@socket, :index), class: "btn" %>
+  <%= live_patch "Add page", to: Routes.slide_show_path(@socket, :add, @slide), class: "btn" %>
+  <!-- <%= live_patch "Edit", to: Routes.slide_show_path(@socket, :edit, @slide), class: "btn" %> -->
+  <%= live_redirect "Back", to: Routes.slide_index_path(@socket, :index), class: "btn" %>
 </div>
