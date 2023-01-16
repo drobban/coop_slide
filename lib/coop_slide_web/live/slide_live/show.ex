@@ -45,9 +45,55 @@ defmodule CoopSlideWeb.SlideLive.Show do
 
     {:noreply,
      socket
-     |> assign(:pages, Shows.get_slide_pages(slide.id))
-     |> push_redirect(to: CoopSlideWeb.Router.Helpers.slide_show_path(CoopSlideWeb.Endpoint, :show, slide))
-     }
+     |> push_redirect(
+       to: CoopSlideWeb.Router.Helpers.slide_show_path(CoopSlideWeb.Endpoint, :show, slide)
+     )}
+  end
+
+  @impl true
+  def handle_event("move_up", %{"id" => id}, socket) do
+    page = Shows.get_page!(id)
+    pages = socket.assigns.pages
+    slide = socket.assigns.slide
+    # {:ok, _} = Shows.delete_page(page)
+    idx = Enum.find_index(pages, fn p -> page == p end)
+
+    case {Enum.at(pages, idx - 1), Enum.at(pages, idx)} do
+      {p1, p2} when idx - 1 > -1 ->
+        IO.inspect("switch places")
+        Shows.update_page(p1, %{order: p2.order})
+        Shows.update_page(p2, %{order: p1.order})
+
+      _ ->
+        # Shouldnt happen.
+        IO.inspect("do nothing")
+    end
+
+    {:noreply,
+     socket
+     |> assign(:pages, Shows.get_slide_pages(slide.id))}
+  end
+
+  @impl true
+  def handle_event("move_down", %{"id" => id}, socket) do
+    page = Shows.get_page!(id)
+    pages = socket.assigns.pages
+    slide = socket.assigns.slide
+    idx = Enum.find_index(pages, fn p -> page == p end)
+
+    case {Enum.at(pages, idx), Enum.at(pages, idx + 1)} do
+      {p, nil} ->
+        IO.inspect("do nothing")
+
+      {p1, p2} ->
+        IO.inspect("switch places")
+        Shows.update_page(p1, %{order: p2.order})
+        Shows.update_page(p2, %{order: p1.order})
+    end
+
+    {:noreply,
+     socket
+     |> assign(:pages, Shows.get_slide_pages(slide.id))}
   end
 
   defp apply_action(socket, :add, %{"id" => id}) do

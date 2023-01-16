@@ -134,7 +134,7 @@ defmodule CoopSlide.Shows do
   def get_page!(id), do: Repo.get!(Page, id)
 
   def get_slide_pages(id) do
-    Repo.all(from p in Page, where: p.slide_id == ^id)
+    Repo.all(from p in Page, where: p.slide_id == ^id, order_by: [asc: p.order])
   end
 
   @doc """

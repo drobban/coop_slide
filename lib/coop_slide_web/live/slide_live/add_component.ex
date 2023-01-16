@@ -26,7 +26,6 @@ defmodule CoopSlideWeb.SlideLive.AddComponent do
   def handle_event("save", %{"page" => page_params}, socket) do
     page_params =
       page_params
-      |> Map.put("order", 1)
       |> Map.put("slide_id", socket.assigns.slide.id)
 
     save_page(socket, socket.assigns.action, page_params)
@@ -59,17 +58,33 @@ defmodule CoopSlideWeb.SlideLive.AddComponent do
   end
 
   defp save_page(socket, :add, page_params) do
-    IO.inspect("WHAT HAPPENS")
-    result = case Shows.create_page(page_params) do
-      {:ok, _page} ->
-        {:noreply,
-         socket
-         |> put_flash(:info, "Page created successfully")
-         |> push_redirect(to: socket.assigns.return_to)}
+    pages = Shows.get_slide_pages(socket.assigns.slide.id)
 
-      {:error, %Ecto.Changeset{} = changeset} ->
-        {:noreply, assign(socket, changeset: changeset)}
-    end
+    order =
+      case Enum.at(pages, -1) do
+        nil ->
+          1
+
+        x ->
+          x.order + 1
+      end
+
+    page_params =
+      page_params
+      |> Map.put("order", order)
+
+    result =
+      case Shows.create_page(page_params) do
+        {:ok, _page} ->
+          {:noreply,
+           socket
+           |> put_flash(:info, "Page created successfully")
+           |> push_redirect(to: socket.assigns.return_to)}
+
+        {:error, %Ecto.Changeset{} = changeset} ->
+          {:noreply, assign(socket, changeset: changeset)}
+      end
+
     IO.inspect(result)
     result
   end
