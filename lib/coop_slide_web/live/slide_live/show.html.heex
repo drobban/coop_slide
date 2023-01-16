@@ -50,6 +50,13 @@
            </div>
          </div>
     <% end %>
+    <div class="col-span-1">
+      <div class="grid grid-cols-2 gap-4">
+        <%= live_patch "Add page", to: Routes.slide_show_path(@socket, :add, @slide), class: "btn btn-sm btn-primary" %>
+        <%= live_redirect "Back", to: Routes.slide_index_path(@socket, :index), class: "btn btn-sm btn-warning" %>
+      </div>
+    </div>
+
    </div>
  </div>
  <div class="col-span-4">
@@ -80,9 +87,4 @@
   <% end %>
 
  </div>
-</div>
-<div class="btn-group">
-  <%= live_patch "Add page", to: Routes.slide_show_path(@socket, :add, @slide), class: "btn" %>
-  <!-- <%= live_patch "Edit", to: Routes.slide_show_path(@socket, :edit, @slide), class: "btn" %> -->
-  <%= live_redirect "Back", to: Routes.slide_index_path(@socket, :index), class: "btn" %>
 </div>

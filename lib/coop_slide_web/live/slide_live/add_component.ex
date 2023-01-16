@@ -75,11 +75,12 @@ defmodule CoopSlideWeb.SlideLive.AddComponent do
 
     result =
       case Shows.create_page(page_params) do
-        {:ok, _page} ->
+        {:ok, page} ->
           {:noreply,
            socket
-           |> put_flash(:info, "Page created successfully")
-           |> push_redirect(to: socket.assigns.return_to)}
+           |> push_redirect(
+             to: CoopSlideWeb.Router.Helpers.slide_show_path(CoopSlideWeb.Endpoint, :edit_page, page.slide_id, page)
+           )}
 
         {:error, %Ecto.Changeset{} = changeset} ->
           {:noreply, assign(socket, changeset: changeset)}
