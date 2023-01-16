@@ -79,7 +79,13 @@ defmodule CoopSlideWeb.SlideLive.AddComponent do
           {:noreply,
            socket
            |> push_redirect(
-             to: CoopSlideWeb.Router.Helpers.slide_show_path(CoopSlideWeb.Endpoint, :edit_page, page.slide_id, page)
+             to:
+               CoopSlideWeb.Router.Helpers.slide_show_path(
+                 CoopSlideWeb.Endpoint,
+                 :edit_page,
+                 page.slide_id,
+                 page
+               )
            )}
 
         {:error, %Ecto.Changeset{} = changeset} ->

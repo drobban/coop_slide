@@ -25,3 +25,10 @@ npm install --save jodit
 
 ## GFX deps
 https://heroicons.dev/
+
+## TODO
+
+* show slide presentation
+ select slide.
+ select presentation mode
+ select controller mode
