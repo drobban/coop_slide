@@ -29,6 +29,7 @@
         <td>
           <span><%= live_redirect "Add page", to: Routes.slide_show_path(@socket, :add, slide) %></span>
           <span><%= live_redirect "Show", to: Routes.slide_show_path(@socket, :show, slide) %></span>
+          <span><%= live_redirect "Present", to: Routes.slide_present_path(@socket, :present, slide) %></span>
           <span><%= live_patch "Edit", to: Routes.slide_index_path(@socket, :edit, slide) %></span>
           <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: slide.id, data: [confirm: "Are you sure?"] %></span>
         </td>

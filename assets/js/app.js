@@ -40,9 +40,10 @@ Hooks.Editor = {
     mounted() {
         this.target = this.el.getAttribute('for');
         const editor = Jodit.make(`#${this.target}`, {
-            "minHeight": 768,
-            "maxHeight": 768,
-            "minWidth": 1024,
+            "minHeight": 900,
+            "maxHeight": 900,
+            "minWidth": 1200,
+            "maxWidth": 1200,
             "uploader": {
                 "insertImageAsBase64URI": true
             }

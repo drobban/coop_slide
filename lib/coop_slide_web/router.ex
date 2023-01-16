@@ -26,6 +26,9 @@ defmodule CoopSlideWeb.Router do
     live "/slides/:id/page/:page_id", SlideLive.Show, :edit_page
     live "/slides/:id/show/add", SlideLive.Show, :add
     live "/slides/:id/show/edit", SlideLive.Show, :edit
+    live "/slides/:id/present", SlideLive.Present, :present
+    live "/slides/:id/projector", SlideLive.Present, :projector
+    live "/slides/:id/control", SlideLive.Present, :controller
 
     live "/pages", PageLive.Index, :index
     live "/pages/new", PageLive.Index, :new
