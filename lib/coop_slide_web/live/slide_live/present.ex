@@ -9,7 +9,8 @@ defmodule CoopSlideWeb.SlideLive.Present do
   def mount(_params, _session, socket) do
     {:ok,
      socket
-     |> assign(:current, 0)}
+     |> assign(:current, 0)
+     |> assign(:video, nil)}
   end
 
   @impl true
@@ -26,9 +27,9 @@ defmodule CoopSlideWeb.SlideLive.Present do
      |> assign(:page_title, page_title(socket.assigns.live_action))}
   end
 
-  @impl true
   def handle_event("video_ready", id, socket) do
-    IO.inspect(id)
+    slide_id = socket.assigns.slide.id
+    PubSub.broadcast(CoopSlide.PubSub, "slide_id:#{slide_id}", %{video_ready: id})
     {:noreply, socket}
   end
 
@@ -39,7 +40,7 @@ defmodule CoopSlideWeb.SlideLive.Present do
         handle_command(socket, topic)
 
       :controller ->
-        {:noreply, socket}
+        handle_command(socket, topic)
 
       _ ->
         IO.inspect("Do nothing!")
@@ -49,6 +50,12 @@ defmodule CoopSlideWeb.SlideLive.Present do
 
   defp handle_command(socket, %{cmd: cmd}) do
     change_slide(socket, cmd)
+  end
+
+  defp handle_command(socket, %{video_ready: id}) do
+    {:noreply,
+     socket
+     |> assign(:video, id)}
   end
 
   defp change_slide(socket, :forward) do

@@ -19,6 +19,8 @@
       title={@page_title}
       action={@live_action}
       slide={@slide}
+      video={@video}
+      current={@current || 0}
       return_to={Routes.slide_present_path(@socket, :present, @slide)}
     />
 </div>
