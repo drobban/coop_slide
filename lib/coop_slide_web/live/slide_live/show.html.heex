@@ -5,7 +5,7 @@
 </div>
 
 <div class="grid grid-cols-5 gap-4">
- <div class="col-span-1 ">
+ <div class="col-span-1">
    <div class="grid grid-cols-1 gap-10">
      <%= for page <- @pages do %>
 
@@ -19,17 +19,25 @@
            </div>
 
            <div class="indicator-item indicator-middle indicator-start">
-             <button class="btn btn-xs btn-square btn-primary" phx-click="move_up" phx-value-id={page.id}>
-               <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                 <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5L12 3m0 0l7.5 7.5M12 3v18"></path>
+             <button class="btn btn-xs btn-square btn-primary"
+                     phx-click="move_up" phx-value-id={page.id}>
+               <svg fill="none" stroke="currentColor" stroke-width="1.5"
+                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                 <path stroke-linecap="round" stroke-linejoin="round"
+                       d="M4.5 15.75l7.5-7.5 7.5 7.5">
+                 </path>
                </svg>
              </button>
            </div>
 
            <div class="indicator-item indicator-middle indicator-end">
-             <button class="btn btn-xs btn-square btn-primary" phx-click="move_down" phx-value-id={page.id}>
-               <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                 <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"></path>
+             <button class="btn btn-xs btn-square btn-primary"
+                     phx-click="move_down" phx-value-id={page.id}>
+               <svg fill="none" stroke="currentColor" stroke-width="1.5"
+                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                 <path stroke-linecap="round" stroke-linejoin="round"
+                       d="M19.5 8.25l-7.5 7.5-7.5-7.5">
+                 </path>
                </svg>
              </button>
            </div>
@@ -51,8 +59,19 @@
          </div>
     <% end %>
     <div class="col-span-1">
-      <div class="grid grid-cols-2 gap-4">
-        <%= live_patch "Add page", to: Routes.slide_show_path(@socket, :add, @slide), class: "btn btn-sm btn-primary" %>
+      <div class="grid grid-cols-5 gap-4">
+        <%= live_patch to: Routes.slide_show_path(@socket, :add, @slide),
+            class: "btn btn-sm btn-square btn-primary" do %>
+          <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+               xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15">
+            </path>
+          </svg>
+        <% end %>
+        <div class="col-span-2">
+        <%= live_redirect "Projection", to: Routes.slide_present_path(@socket, :projector, @slide),
+            class: "btn btn-sm btn-primary" %>
+        </div>
         <%= live_redirect "Back", to: Routes.slide_index_path(@socket, :index), class: "btn btn-sm btn-warning" %>
       </div>
     </div>
