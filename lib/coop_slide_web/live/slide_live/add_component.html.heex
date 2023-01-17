@@ -12,15 +12,10 @@
     <div id="parent" phx-update="ignore" >
       <div id="editor"/>
     </div>
-    <!-- <div class="box-border border-2"> -->
-    <!--   <div id="document_editor_toolbar" phx-update="ignore" /> -->
-    <!--   <div id="document_editor" style="height: 72vh; margin-bottom: 1em;" phx-update="ignore" /> -->
-    <!-- </div> -->
 
     <%= hidden_input f, :order, value: @page.order %>
     <%= hidden_input f, :slide_id, value: @page.slide_id %>
 
-      <!-- <%= submit "Save", phx_disable_with: "Saving..." %> -->
     <button type="submit" class="btn btn-sm btn-outline btn-primary" style="margin-top: 1em;">
       Save
     </button>

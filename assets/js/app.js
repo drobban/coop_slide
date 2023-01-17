@@ -61,24 +61,76 @@ Hooks.Editor = {
         this.editor.s.focus();
         this.editor.setEditorValue(this.el.value);
     }
+};
+
+function get_SrcAddr(el) {
+    return el.getAttribute("src").split("/").slice(-1);
 }
 
-let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
-let liveSocket = new LiveSocket("/live", Socket, {params: {_csrf_token: csrfToken}, hooks: Hooks})
+function onPlayerReady(event) {
+    // event.target.playVideo();
+    console.log("Player ready");
+    // event.target.playVideo();
+}
+
+function onYouTubeIframeAPIReady() {
+    /*gets called when API Ready*/
+}
+window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
+
+function setUpPlayer(el) {
+    var iframe = el.querySelector("iframe");
+    if (iframe !== null) {
+        addr = get_SrcAddr(iframe)[0];
+        width = iframe.getAttribute("width");
+        height = iframe.getAttribute("height");
+        style = iframe.getAttribute("style");
+        console.log(addr);
+        console.log(width);
+        console.log(height);
+
+        const div = document.createElement("div");
+        div.setAttribute("id", "play");
+        div.setAttribute("style", style);
+        iframe.replaceWith(div);
+
+        player = new YT.Player('play', {
+            videoId: addr,
+            height: height,
+            width: width,
+            events: {
+                'onReady': onPlayerReady
+            }
+        });
+    }
+}
+
+Hooks.VideoList = {
+    mounted() {
+        setUpPlayer(this.el);
+    },
+    updated() {
+        setUpPlayer(this.el);
+    }
+};
+
+
+let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content");
+let liveSocket = new LiveSocket("/live", Socket, {params: {_csrf_token: csrfToken}, hooks: Hooks});
 
 // Show progress bar on live navigation and form submits
-topbar.config({barColors: {0: "#29d"}, shadowColor: "rgba(0, 0, 0, .3)"})
-window.addEventListener("phx:page-loading-start", info => topbar.show())
-window.addEventListener("phx:page-loading-stop", info => topbar.hide())
+topbar.config({barColors: {0: "#29d"}, shadowColor: "rgba(0, 0, 0, .3)"});
+window.addEventListener("phx:page-loading-start", info => topbar.show());
+window.addEventListener("phx:page-loading-stop", info => topbar.hide());
 
 
 // connect if there are any LiveViews on the page
-liveSocket.connect()
+liveSocket.connect();
 
 // expose liveSocket on window for web console debug logs and latency simulation:
 // >> liveSocket.enableDebug()
 // >> liveSocket.enableLatencySim(1000)  // enabled for duration of browser session
 // >> liveSocket.disableLatencySim()
-window.liveSocket = liveSocket
+window.liveSocket = liveSocket;
 
-window.Jodit = Jodit
+window.Jodit = Jodit;
