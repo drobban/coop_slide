@@ -27,6 +27,12 @@ defmodule CoopSlideWeb.SlideLive.Present do
   end
 
   @impl true
+  def handle_event("video_ready", id, socket) do
+    IO.inspect(id)
+    {:noreply, socket}
+  end
+
+  @impl true
   def handle_info(topic, socket) do
     case socket.assigns.live_action do
       :projector ->

@@ -27,13 +27,7 @@ import {Socket} from "phoenix"
 import {LiveSocket} from "phoenix_live_view"
 import topbar from "../vendor/topbar"
 
-
-// import DecoupledEditor from "@ckeditor/ckeditor5-build-decoupled-document";
-// import DecoupledEditor from "ckeditor5-custom-build";
 import {Jodit} from "jodit/build/jodit.es2018.min.js"
-// import ClassicEditor from "@vndywhat/ckeditor5-build-classic-full-with-base64-upload-and-spoiler";
-// import Base64UploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/base64uploadadapter';
-
 
 let Hooks = {};
 Hooks.Editor = {
@@ -71,6 +65,8 @@ function onPlayerReady(event) {
     // event.target.playVideo();
     console.log("Player ready");
     // event.target.playVideo();
+    window.player = event.target;
+    window.presentation.pushEvent("video_ready", event.target.videoTitle);
 }
 
 function onYouTubeIframeAPIReady() {
@@ -108,9 +104,11 @@ function setUpPlayer(el) {
 Hooks.VideoList = {
     mounted() {
         setUpPlayer(this.el);
+        window.presentation = this;
     },
     updated() {
         setUpPlayer(this.el);
+        window.presentation = this;
     }
 };
 
