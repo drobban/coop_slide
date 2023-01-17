@@ -1,6 +1,7 @@
 defmodule CoopSlideWeb.SlideLive.ControlComponent do
   use CoopSlideWeb, :live_component
 
+  alias Phoenix.PubSub
   alias CoopSlide.Shows
 
   @impl true
@@ -32,59 +33,63 @@ defmodule CoopSlideWeb.SlideLive.ControlComponent do
          |> push_redirect(to: socket.assigns.return_to)}
 
       _ ->
-        IO.inspect(key)
         {:noreply, socket}
     end
   end
 
   def handle_event("change_slide", %{"command" => cmd}, socket) do
     case cmd do
+      "prev" ->
+        change_slide(socket, :backward)
+
+      "next" ->
+        change_slide(socket, :forward)
+
       _ ->
-        IO.inspect(cmd)
         {:noreply, socket}
     end
   end
 
   defp change_slide(socket, :forward) do
     current = socket.assigns.current + 1
+    pages = socket.assigns.pages
+    slide_id = socket.assigns.slide.id
+    PubSub.broadcast(CoopSlide.PubSub, "slide_id:#{slide_id}", %{cmd: :forward})
 
-    {new_current, new_page} =
-      case Enum.at(socket.assigns.pages, current) do
-        %CoopSlide.Shows.Page{} = page ->
-          {current, page}
+    case Enum.at(pages, current) do
+      %CoopSlide.Shows.Page{} = page ->
+        {:noreply,
+         socket
+         |> assign(:current, current)
+         |> assign(:prev_page, Enum.at(pages, current - 1))
+         |> assign(:page, page)
+         |> assign(:next_page, Enum.at(pages, current + 1))}
 
-        nil ->
-          {socket.assigns.current, socket.assigns.page}
-      end
-
-    {:noreply,
-     socket
-     |> assign(:current, new_current)
-     |> assign(:page, new_page)}
+      nil ->
+        {:noreply, socket}
+    end
   end
 
   defp change_slide(socket, :backward) do
     current = socket.assigns.current - 1
-    IO.inspect(socket.assigns.current)
-    IO.inspect(current)
+    pages = socket.assigns.pages
 
-    {new_current, new_page} =
-      case current do
-        x when x > -1 ->
-          IO.inspect("stepping backwards")
-          IO.inspect(x)
-          {x, Enum.at(socket.assigns.pages, x)}
+    slide_id = socket.assigns.slide.id
+    PubSub.broadcast(CoopSlide.PubSub, "slide_id:#{slide_id}", %{cmd: :backward})
 
-        _ ->
-          IO.inspect("At alfa")
-          {socket.assigns.current, socket.assigns.page}
-      end
+    case Enum.at(pages, current) do
+      %CoopSlide.Shows.Page{} = page when current > -1 ->
+        prev = if current == 0, do: nil, else: Enum.at(pages, current - 1)
 
-    IO.inspect(new_current)
+        {:noreply,
+         socket
+         |> assign(:current, current)
+         |> assign(:prev_page, prev)
+         |> assign(:page, page)
+         |> assign(:next_page, Enum.at(pages, current + 1))}
 
-    {:noreply,
-     socket
-     |> assign(:current, new_current)
-     |> assign(:page, new_page)}
+      nil ->
+        {:noreply, socket}
+    end
   end
 end

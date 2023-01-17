@@ -13,29 +13,32 @@
   <div class="col-span-1">
     <div class="grid grid-cols-6 gap-4">
       <div class="col-span-3">
-        <div class="box box-border border-2"
-             style="width: 145px; height: 77px">
           <%= if @prev_page do %>
-          <div style="zoom: 0.1; -moz-transform: scale(0.1);" class=""
-               phx-click="change_slide" phx-target={@myself} phx-value-command="prev">
+        <div class="box box-border border-2"
+             phx-disable-with="Loading.."
+             phx-click="change_slide" phx-target={@myself} phx-value-command="prev"
+             style="width: 145px; height: 77px">
+          <div style="zoom: 0.1; -moz-transform: scale(0.1);">
             <div style="max-width: 1452px; height: 768px; word-wrap: break-word;">
-              <%= raw @next_page.content %>
+              <%= raw @prev_page.content %>
             </div>
           </div>
-          <% end %>
         </div>
+          <% end %>
       </div>
       <div class="col-span-3">
-        <div class="box box-border border-2 " style="width: 145px;">
-          <%= if @next_page do %>
-          <div style="zoom: 0.1; -moz-transform: scale(0.1);" class=""
-               phx-click="change_slide" phx-target={@myself} phx-value-command="prev">
+        <%= if @next_page do %>
+        <div class="box box-border border-2"
+             phx-disable-with="Loading.."
+             phx-click="change_slide" phx-target={@myself} phx-value-command="next"
+             style="width: 145px; height: 77px">
+          <div style="zoom: 0.1; -moz-transform: scale(0.1);">
             <div style="max-width: 1452px; height: 768px; word-wrap: break-word;">
               <%= raw @next_page.content %>
             </div>
           </div>
-          <% end %>
         </div>
+        <% end %>
       </div>
     </div>
   </div>
