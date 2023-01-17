@@ -1,10 +1,10 @@
-defmodule CoopSlideWeb.SlideLive.ProjectComponent do
+defmodule CoopSlideWeb.SlideLive.ControlComponent do
   use CoopSlideWeb, :live_component
 
   alias CoopSlide.Shows
 
   @impl true
-  def update(%{current: current} = assigns, socket) do
+  def update(assigns, socket) do
     slide = assigns.slide
     pages = Shows.get_slide_pages(slide.id)
 
@@ -12,8 +12,10 @@ defmodule CoopSlideWeb.SlideLive.ProjectComponent do
      socket
      |> assign(assigns)
      |> assign(:pages, pages)
-     |> assign(:current, current)
-     |> assign(:page, Enum.at(pages, current))}
+     |> assign(:current, 0)
+     |> assign(:page, Enum.at(pages, 0))
+     |> assign(:next_page, Enum.at(pages, 1))
+     |> assign(:prev_page, nil)}
   end
 
   def handle_event("change_slide", %{"key" => key}, socket) do
@@ -31,6 +33,14 @@ defmodule CoopSlideWeb.SlideLive.ProjectComponent do
 
       _ ->
         IO.inspect(key)
+        {:noreply, socket}
+    end
+  end
+
+  def handle_event("change_slide", %{"command" => cmd}, socket) do
+    case cmd do
+      _ ->
+        IO.inspect(cmd)
         {:noreply, socket}
     end
   end

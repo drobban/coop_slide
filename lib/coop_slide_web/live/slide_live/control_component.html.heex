@@ -1,0 +1,42 @@
+<div class="grid grid-cols-1 place-items-center"
+     phx-window-keyup="change_slide" phx-target={@myself}>
+  <div class="box box-border border-2 " id={"link_#{@page.id}"} style="width: 291px;">
+    <div id={"parent_#{@page.id}"} style="zoom: 0.2; -moz-transform: scale(0.2);" class="">
+      <div style="max-width: 1452px; height: 768px; word-wrap: break-word;">
+        <%= raw @page.content %>
+      </div>
+    </div>
+  </div>
+  <div class="col-span-1 h-96 px-10" style="word-wrap: break-word;">
+    <!-- Notes is shown here -->
+  </div>
+  <div class="col-span-1">
+    <div class="grid grid-cols-6 gap-4">
+      <div class="col-span-3">
+        <div class="box box-border border-2"
+             style="width: 145px; height: 77px">
+          <%= if @prev_page do %>
+          <div style="zoom: 0.1; -moz-transform: scale(0.1);" class=""
+               phx-click="change_slide" phx-target={@myself} phx-value-command="prev">
+            <div style="max-width: 1452px; height: 768px; word-wrap: break-word;">
+              <%= raw @next_page.content %>
+            </div>
+          </div>
+          <% end %>
+        </div>
+      </div>
+      <div class="col-span-3">
+        <div class="box box-border border-2 " style="width: 145px;">
+          <%= if @next_page do %>
+          <div style="zoom: 0.1; -moz-transform: scale(0.1);" class=""
+               phx-click="change_slide" phx-target={@myself} phx-value-command="prev">
+            <div style="max-width: 1452px; height: 768px; word-wrap: break-word;">
+              <%= raw @next_page.content %>
+            </div>
+          </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -3,6 +3,19 @@
     <.live_component
       id={@slide.id}
       module={CoopSlideWeb.SlideLive.ProjectComponent}
+      current={@current || 0}
+      title={@page_title}
+      action={@live_action}
+      slide={@slide}
+      return_to={Routes.slide_present_path(@socket, :present, @slide)}
+    />
+</div>
+<% end %>
+<%= if @live_action in [:controller] do %>
+<div class="">
+    <.live_component
+      id={@slide.id}
+      module={CoopSlideWeb.SlideLive.ControlComponent}
       title={@page_title}
       action={@live_action}
       slide={@slide}
@@ -11,7 +24,7 @@
 </div>
 <% end %>
 
-<%= if @live_action not in [:projector, :control] do %>
+<%= if @live_action not in [:projector, :controller] do %>
 <div class="prose">
   <h1>
     <%= @slide.name %>
@@ -19,27 +32,28 @@
 </div>
 
 
-<div class="grid grid-cols-5 gap-4">
+<div class="grid  md:grid-cols-1 lg:grid-cols-5 gap-4 place-items-center">
   <%= for page <- @pages do %>
     <%= live_patch to: Routes.slide_show_path(@socket, :edit_page, @slide, page.id) do %>
-      <div class="box box-border border-2" style="width: 100%;" id={"link_#{page.id}"}>
-        <div id={"parent_#{page.id}"} style="zoom: 0.2; -moz-transform: scale(0.2);  overflow-y: hidden;" >
-          <div style="width: 1024px; height: 768px; word-wrap: break-word;" class="min-w-full">
-
-            <%= raw page.content %>
-          </div>
+    <div class="box box-border border-2 " style="width: 291px;">
+      <div id={"parent_#{page.id}"} style="zoom: 0.2; -moz-transform: scale(0.2);  overflow-y: hidden;" >
+        <div style="max-width: 1452px; height: 768px; word-wrap: break-word;">
+          <%= raw page.content %>
         </div>
       </div>
+    </div>
     <% end %>
   <% end %>
-  <div class="col-span-5">
-    <div class="grid grid-cols-2 gap-4">
-      <div class="col-span-1">
-        <%= live_redirect "Projection", to: Routes.slide_present_path(@socket, :projector, @slide), class: "btn btn-sm btn-primary" %>
-        <%= live_redirect "Control", to: Routes.slide_present_path(@socket, :controller, @slide), class: "btn btn-sm btn-secondary" %>
-        <%= live_redirect "Back", to: Routes.slide_index_path(@socket, :index), class: "btn btn-sm btn-warning" %>
-      </div>
-    </div>
+  <div class="lg:col-span-5">
+        <%= live_redirect "Projection",
+            to: Routes.slide_present_path(@socket, :projector, @slide),
+            class: "btn btn-sm btn-primary" %>
+        <%= live_redirect "Control",
+            to: Routes.slide_present_path(@socket, :controller, @slide),
+            class: "btn btn-sm btn-secondary" %>
+        <%= live_redirect "Back",
+            to: Routes.slide_index_path(@socket, :index),
+            class: "btn btn-sm btn-warning" %>
   </div>
 </div>
 <% end %>
