@@ -29,10 +29,13 @@ https://heroicons.dev/
 ## TODO
 
 cleanup unit test
+
 add additional tests
 
 
 ## Features working at the moment
 create slides
+
 show slides
+
 control presentation from remote web client.
