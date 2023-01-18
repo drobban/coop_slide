@@ -4,6 +4,7 @@ defmodule CoopSlide.Shows.Page do
 
   schema "pages" do
     field :content, :string
+    field :memo, :string
     field :order, :integer
     belongs_to :slide, CoopSlide.Shows.Slide
 
@@ -13,7 +14,7 @@ defmodule CoopSlide.Shows.Page do
   @doc false
   def changeset(page, attrs) do
     page
-    |> cast(attrs, [:content, :order, :slide_id])
+    |> cast(attrs, [:content, :memo, :order, :slide_id])
     |> validate_required([:content, :order, :slide_id])
   end
 end

@@ -16,6 +16,7 @@
     <%= hidden_input f, :order, value: @page.order %>
     <%= hidden_input f, :slide_id, value: @page.slide_id %>
 
+    <%= textarea f, :memo, value: @page.memo, style: "width: 100%;"%>
     <button type="submit" class="btn btn-sm btn-outline btn-primary" style="margin-top: 1em;">
       Save
     </button>
