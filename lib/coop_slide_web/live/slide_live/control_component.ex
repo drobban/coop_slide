@@ -47,6 +47,12 @@ defmodule CoopSlideWeb.SlideLive.ControlComponent do
     end
   end
 
+  def handle_event("video_toggle", _payload, socket) do
+    slide_id = socket.assigns.slide.id
+    PubSub.broadcast(CoopSlide.PubSub, "slide_id:#{slide_id}", %{project_cmd: :toggle_player})
+    {:noreply, socket}
+  end
+
   defp change_slide(socket, :forward) do
     current = socket.assigns.current + 1
     pages = socket.assigns.pages

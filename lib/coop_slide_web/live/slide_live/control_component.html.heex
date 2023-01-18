@@ -12,7 +12,9 @@
   </div>
   <div>
     <%= if @video do %>
-    <div class="btn btn-warning"><%= @video %></div>
+      <%= if @video.idx == @current do %>
+      <div class="btn btn-warning" phx-click="video_toggle" phx-target={@myself}><%= @video.title %></div>
+      <% end %>
     <% end %>
   </div>
   <div class="col-span-1">

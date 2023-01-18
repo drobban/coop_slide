@@ -66,7 +66,11 @@ function onPlayerReady(event) {
     console.log("Player ready");
     // event.target.playVideo();
     window.player = event.target;
-    window.presentation.pushEvent("video_ready", event.target.videoTitle);
+    window.player_toggle = window.player.playVideo;
+    window.presentation.pushEvent("video_ready",
+                                  {idx: window.presentation.el.getAttribute("data"),
+                                   video_title: event.target.videoTitle
+                                  });
 }
 
 function onYouTubeIframeAPIReady() {
@@ -111,6 +115,19 @@ Hooks.VideoList = {
         window.presentation = this;
     }
 };
+
+window.addEventListener(
+    "phx:toggle-player", e => {
+        console.log(e);
+        if (window.player_toggle === window.player.playVideo) {
+            window.player_toggle = window.player.pauseVideo;
+            window.player.playVideo();
+        } else {
+            window.player_toggle = window.player.playVideo;
+            window.player.pauseVideo();
+        }
+    }
+)
 
 
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content");

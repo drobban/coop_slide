@@ -30,7 +30,6 @@ defmodule CoopSlideWeb.SlideLive.ProjectComponent do
          |> push_redirect(to: socket.assigns.return_to)}
 
       _ ->
-        IO.inspect(key)
         {:noreply, socket}
     end
   end
@@ -55,22 +54,15 @@ defmodule CoopSlideWeb.SlideLive.ProjectComponent do
 
   defp change_slide(socket, :backward) do
     current = socket.assigns.current - 1
-    IO.inspect(socket.assigns.current)
-    IO.inspect(current)
 
     {new_current, new_page} =
       case current do
         x when x > -1 ->
-          IO.inspect("stepping backwards")
-          IO.inspect(x)
           {x, Enum.at(socket.assigns.pages, x)}
 
         _ ->
-          IO.inspect("At alfa")
           {socket.assigns.current, socket.assigns.page}
       end
-
-    IO.inspect(new_current)
 
     {:noreply,
      socket

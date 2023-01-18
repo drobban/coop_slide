@@ -92,7 +92,6 @@ defmodule CoopSlideWeb.SlideLive.AddComponent do
           {:noreply, assign(socket, changeset: changeset)}
       end
 
-    IO.inspect(result)
     result
   end
 

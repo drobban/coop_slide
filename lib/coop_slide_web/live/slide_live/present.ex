@@ -37,10 +37,10 @@ defmodule CoopSlideWeb.SlideLive.Present do
   def handle_info(topic, socket) do
     case socket.assigns.live_action do
       :projector ->
-        handle_command(socket, topic)
+        handle_command(topic, socket)
 
       :controller ->
-        handle_command(socket, topic)
+        handle_command(topic, socket)
 
       _ ->
         IO.inspect("Do nothing!")
@@ -48,14 +48,22 @@ defmodule CoopSlideWeb.SlideLive.Present do
     end
   end
 
-  defp handle_command(socket, %{cmd: cmd}) do
+  defp handle_command(%{project_cmd: :toggle_player}, socket) do
+    if socket.assigns.live_action == :projector do
+      {:noreply, push_event(socket, "toggle-player", %{data: nil})}
+    else
+      {:noreply, socket}
+    end
+  end
+
+  defp handle_command(%{cmd: cmd}, socket) do
     change_slide(socket, cmd)
   end
 
-  defp handle_command(socket, %{video_ready: id}) do
+  defp handle_command(%{video_ready: %{"idx" => current, "video_title" => title}}, socket) do
     {:noreply,
      socket
-     |> assign(:video, id)}
+     |> assign(:video, %{idx: String.to_integer(current), title: title})}
   end
 
   defp change_slide(socket, :forward) do

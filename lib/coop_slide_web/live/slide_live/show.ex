@@ -60,7 +60,6 @@ defmodule CoopSlideWeb.SlideLive.Show do
 
     case {Enum.at(pages, idx - 1), Enum.at(pages, idx)} do
       {p1, p2} when idx - 1 > -1 ->
-        IO.inspect("switch places")
         Shows.update_page(p1, %{order: p2.order})
         Shows.update_page(p2, %{order: p1.order})
 
@@ -86,7 +85,6 @@ defmodule CoopSlideWeb.SlideLive.Show do
         IO.inspect("do nothing")
 
       {p1, p2} ->
-        IO.inspect("switch places")
         Shows.update_page(p1, %{order: p2.order})
         Shows.update_page(p2, %{order: p1.order})
     end
