@@ -62,9 +62,6 @@ function get_SrcAddr(el) {
 }
 
 function onPlayerReady(event) {
-    // event.target.playVideo();
-    console.log("Player ready");
-    // event.target.playVideo();
     window.player = event.target;
     window.player_toggle = window.player.playVideo;
     window.presentation.pushEvent("video_ready",
