@@ -15,6 +15,6 @@ defmodule CoopSlide.Shows.Page do
   def changeset(page, attrs) do
     page
     |> cast(attrs, [:content, :memo, :order, :slide_id])
-    |> validate_required([:content, :order, :slide_id])
+    |> validate_required([:order, :slide_id])
   end
 end

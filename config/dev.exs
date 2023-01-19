@@ -66,6 +66,9 @@ config :coop_slide, CoopSlideWeb.Endpoint,
     ]
   ]
 
+config :coop_slide,
+  uploads_directory: "/home/drobban/temp"
+
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
 

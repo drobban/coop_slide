@@ -14,6 +14,21 @@ defmodule CoopSlideWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :file_handler do
+    plug :accepts, ["html"]
+    plug :fetch_session
+    plug :fetch_live_flash
+    plug :put_root_layout, {CoopSlideWeb.LayoutView, :root}
+    plug :put_secure_browser_headers
+  end
+
+  scope "/", CoopSlideWeb do
+    pipe_through :file_handler
+
+    resources "/uploads", UploadController, only: [:index, :new, :create, :show]
+    post "/list_uploads", UploadController, :index
+  end
+
   scope "/", CoopSlideWeb do
     pipe_through :browser
 

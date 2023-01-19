@@ -5,12 +5,17 @@
     id="page-form"
     phx-target={@myself}
     phx-submit="save">
-    <%= textarea f, :content, phx_hook: "Editor", for: "editor",
-        value: @page.content, style: "display: none;" %>
-    <%= error_tag f, :content %>
-    <div id="parent" phx-update="ignore" >
-      <div id="editor"/>
+
+
+    <%= textarea f, :content, value: @page.content, style: "display: none;", phx_hook: "Editor" %>
+        <!-- value: @page.content, style: "display: none;" %> -->
+    <div id="parent" phx-update="ignore">
+      <textarea id="editor"/>
     </div>
+    <%= error_tag f, :content %>
+    <!-- <div id="parent" phx-update="ignore" > -->
+    <!--   <div id="editor"/> -->
+    <!-- </div> -->
 
     <%= hidden_input f, :order, value: @page.order %>
     <%= hidden_input f, :slide_id, value: @page.slide_id %>

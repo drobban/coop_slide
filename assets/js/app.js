@@ -27,32 +27,57 @@ import {Socket} from "phoenix"
 import {LiveSocket} from "phoenix_live_view"
 import topbar from "../vendor/topbar"
 
-import {Jodit} from "jodit/build/jodit.es2018.min.js"
+// import {Jodit} from "jodit/build/jodit.es2018.min.js"
+import {Jodit} from "jodit/build/jodit.es2018.js"
 
 let Hooks = {};
 Hooks.Editor = {
     mounted() {
-        this.target = this.el.getAttribute('for');
-        const editor = Jodit.make(`#${this.target}`, {
+        const editor = Jodit.make('#editor', {
             "minHeight": 900,
             "maxHeight": 900,
             "minWidth": 1200,
             "maxWidth": 1200,
             "uploader": {
-                "insertImageAsBase64URI": true
+                // "insertImageAsBase64URI": true
+                insertImageAsBase64URI: false,
+                url: '/uploads',
+                imagesExtensions: ['jpg', 'png', 'jpeg', 'gif'],
+
+            },
+            filebrowser: {
+                createNewFolder: false,
+                deleteFolder: false,
+                ajax: {
+                    url: '/list_uploads',
+			              // headers: {
+				            //     'X-CSRF-Token': document
+					          //         .querySelector('meta[name="csrf-token"]')
+					          //         .getAttribute('content')
+			              // },
+                },
             }
         });
-        editor.setEditorValue(this.el.value);
-        editor.e.on('change', () => {
-            if ( editor.value !== this.el.value ) {
-                this.el.value = editor.value;
-            }
-        });
+        editor.s.focus();
+
         this.editor = editor;
-    },
-    updated() {
+        this.editor.e.on('change', () => {
+            if ( this.editor.getEditorValue() != this.el.value ) {
+                this.el.value = editor.getEditorValue();
+            }
+        });
+
         val = this.editor.getEditorValue();
         if (this.el.value !== val) {
+            this.editor.setEditorValue(this.el.value);
+        }
+        console.log("What!");
+    },
+    updated() {
+        console.log("getting here")
+        val = this.editor.getEditorValue();
+        if (this.el.value != val) {
+            console.log("getting here!!!!");
             this.editor.setEditorValue(this.el.value);
         }
     }
@@ -142,7 +167,7 @@ liveSocket.connect();
 
 // expose liveSocket on window for web console debug logs and latency simulation:
 // >> liveSocket.enableDebug()
-liveSocket.enableLatencySim(8000)  // enabled for duration of browser session
+// liveSocket.enableLatencySim(8000)  // enabled for duration of browser session
 // >> liveSocket.disableLatencySim()
 window.liveSocket = liveSocket;
 

@@ -15,8 +15,7 @@ defmodule CoopSlideWeb.SlideLive.ControlComponent do
      |> assign(:pages, pages)
      |> assign(:page, Enum.at(pages, assigns.current))
      |> assign(:at_end, Enum.at(pages, assigns.current) == Enum.at(pages, -1))
-     |> assign(:at_beginning, assigns.current == 0)
-    }
+     |> assign(:at_beginning, assigns.current == 0)}
   end
 
   def handle_event("change_slide", %{"key" => key}, socket) do

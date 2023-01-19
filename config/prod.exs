@@ -12,6 +12,9 @@ import Config
 config :coop_slide, CoopSlideWeb.Endpoint,
   cache_static_manifest: "priv/static/cache_manifest.json"
 
+config :coop_slide,
+  uploads_directory: System.get_env("SLIDE_UPLOADS_DIRECTORY") || "/uploads"
+
 # Do not print debug messages in production
 config :logger, level: :info
 
