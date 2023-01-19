@@ -4,7 +4,6 @@
     for={@changeset}
     id="page-form"
     phx-target={@myself}
-    phx-change="validate"
     phx-submit="save">
     <%= textarea f, :content, phx_hook: "Editor", for: "editor",
         value: @page.content, style: "display: none;" %>
@@ -17,7 +16,8 @@
     <%= hidden_input f, :slide_id, value: @page.slide_id %>
 
     <%= textarea f, :memo, value: @page.memo, style: "width: 100%;"%>
-    <button type="submit" class="btn btn-sm btn-outline btn-primary" style="margin-top: 1em;">
+    <button type="submit" phx-disable-with="Saving..."
+            class="btn btn-sm btn-outline btn-primary" style="margin-top: 1em;">
       Save
     </button>
   </.form>

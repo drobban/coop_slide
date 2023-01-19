@@ -42,8 +42,7 @@ Hooks.Editor = {
                 "insertImageAsBase64URI": true
             }
         });
-        editor.s.focus();
-        editor.s.insertHTML(this.el.value);
+        editor.setEditorValue(this.el.value);
         editor.e.on('change', () => {
             if ( editor.value !== this.el.value ) {
                 this.el.value = editor.value;
@@ -52,8 +51,10 @@ Hooks.Editor = {
         this.editor = editor;
     },
     updated() {
-        this.editor.s.focus();
-        this.editor.setEditorValue(this.el.value);
+        val = this.editor.getEditorValue();
+        if (this.el.value !== val) {
+            this.editor.setEditorValue(this.el.value);
+        }
     }
 };
 
@@ -141,7 +142,7 @@ liveSocket.connect();
 
 // expose liveSocket on window for web console debug logs and latency simulation:
 // >> liveSocket.enableDebug()
-// >> liveSocket.enableLatencySim(1000)  // enabled for duration of browser session
+liveSocket.enableLatencySim(8000)  // enabled for duration of browser session
 // >> liveSocket.disableLatencySim()
 window.liveSocket = liveSocket;
 

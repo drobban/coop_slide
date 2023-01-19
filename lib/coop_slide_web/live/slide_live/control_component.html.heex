@@ -21,6 +21,7 @@
   <div class="col-span-1">
     <div class="grid grid-cols-6 gap-4">
       <div class="col-span-3">
+        <%= if !@at_beginning do %>
         <div class="grid grid-cols-1 align center"
              phx-disable-with="Loading.."
              phx-click="change_slide" phx-target={@myself} phx-value-command="prev"
@@ -28,15 +29,19 @@
           <div class="btn btn-primary"> previous
           </div>
         </div>
+        <% end %>
       </div>
       <div class="col-span-3">
+        <%= if !@at_end do %>
         <div class="grid grid-cols-1 align center"
              phx-disable-with="Loading.."
              phx-click="change_slide" phx-target={@myself} phx-value-command="next"
              style="width: 145px; height: 77px">
-          <div class="btn btn-primary"> next
+          <div class="btn btn-primary">
+            next
           </div>
         </div>
+        <% end %>
       </div>
     </div>
   </div>

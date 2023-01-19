@@ -13,7 +13,10 @@ defmodule CoopSlideWeb.SlideLive.ControlComponent do
      socket
      |> assign(assigns)
      |> assign(:pages, pages)
-     |> assign(:page, Enum.at(pages, assigns.current))}
+     |> assign(:page, Enum.at(pages, assigns.current))
+     |> assign(:at_end, Enum.at(pages, assigns.current) == Enum.at(pages, -1))
+     |> assign(:at_beginning, assigns.current == 0)
+    }
   end
 
   def handle_event("change_slide", %{"key" => key}, socket) do
@@ -63,6 +66,8 @@ defmodule CoopSlideWeb.SlideLive.ControlComponent do
       %CoopSlide.Shows.Page{} = page ->
         {:noreply,
          socket
+         |> assign(:at_end, page == Enum.at(pages, -1))
+         |> assign(:at_beginning, current == 0)
          |> assign(:current, current)
          |> assign(:video, nil)
          |> assign(:page, page)}
@@ -83,6 +88,8 @@ defmodule CoopSlideWeb.SlideLive.ControlComponent do
       %CoopSlide.Shows.Page{} = page when current > -1 ->
         {:noreply,
          socket
+         |> assign(:at_end, page == Enum.at(pages, -1))
+         |> assign(:at_beginning, current == 0)
          |> assign(:current, current)
          |> assign(:video, nil)
          |> assign(:page, page)}
