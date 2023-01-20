@@ -18,10 +18,14 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
   * Forum: https://elixirforum.com/c/phoenix-forum
   * Source: https://github.com/phoenixframework/phoenix
   
+ 
+# Dev info
   
 ## NPM deps
 npm i daisyui
 npm install --save jodit
+
+https://github.com/xdan/jodit/tree/master/src/modules/file-browser - jodit documentation
 
 ## GFX deps
 https://heroicons.dev/
