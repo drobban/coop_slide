@@ -11,6 +11,11 @@ processes = []
 [env]
   PHX_HOST = "coop-slide.fly.dev"
   PORT = "8080"
+  SLIDE_UPLOADS_DIRECTORY = "/data"
+
+[mounts]
+source="myapp_data"
+destination="/data"
 
 [experimental]
   auto_rollback = true

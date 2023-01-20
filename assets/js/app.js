@@ -27,8 +27,8 @@ import {Socket} from "phoenix"
 import {LiveSocket} from "phoenix_live_view"
 import topbar from "../vendor/topbar"
 
-// import {Jodit} from "jodit/build/jodit.es2018.min.js"
-import {Jodit} from "jodit/build/jodit.es2018.js"
+import {Jodit} from "jodit/build/jodit.es2018.min.js"
+// import {Jodit} from "jodit/build/jodit.es2018.js"
 
 let Hooks = {};
 Hooks.Editor = {
@@ -78,14 +78,10 @@ Hooks.Editor = {
         if (this.el.value !== val) {
             this.editor.setEditorValue(this.el.value);
         }
-        console.log("What!");
     },
     updated() {
-        console.log("Slide id:"+this.slide_id);
-        console.log("getting here");
         val = this.editor.getEditorValue();
         if (this.el.value != val) {
-            console.log("getting here!!!!");
             this.editor.setEditorValue(this.el.value);
         }
     }
