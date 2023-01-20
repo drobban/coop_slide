@@ -36,6 +36,15 @@ defmodule CoopSlide.Documents do
     end)
   end
 
+  def remove_upload(id) do
+    upload =
+      Upload
+      |> Repo.get!(id)
+
+    File.rm(Upload.local_path(upload.id, upload.filename))
+    Repo.delete(upload)
+  end
+
   def list_uploads do
     Repo.all(Upload)
   end

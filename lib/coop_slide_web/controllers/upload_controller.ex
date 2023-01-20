@@ -41,7 +41,7 @@ defmodule CoopSlideWeb.UploadController do
     send_download(conn, {:file, local_path}, filename: upload.filename)
   end
 
-  def index(conn, args) do
+  def index(conn, %{"action" => "files"} = args) do
     data = Documents.list_uploads()
 
     files =
@@ -71,4 +71,27 @@ defmodule CoopSlideWeb.UploadController do
 
     json(conn, data)
   end
+
+  def index(conn, %{"action" => "permissions"}) do
+    # To be implemented. but this whole module and routes needs
+    # to be refactored.
+    data =
+      %{"success" => true,
+        "code" => 220
+       }
+
+    json(conn, data)
+  end
+
+  def index(conn, %{"action" => "fileRemove", "name" => id}) do
+    IO.inspect("something else")
+    Documents.remove_upload(id)
+    data =
+      %{"success" => true,
+        "code" => 220
+       }
+
+    json(conn, data)
+  end
+
 end
