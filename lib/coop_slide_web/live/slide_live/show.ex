@@ -14,7 +14,7 @@ defmodule CoopSlideWeb.SlideLive.Show do
   end
 
   @impl true
-  def handle_params(%{"id" => id, "page_id" => page_id} = params, _, socket) do
+  def handle_params(%{"id" => id, "page_id" => page_id} = _params, _, socket) do
     pages = Shows.get_slide_pages(id)
     page = Shows.get_page!(page_id)
 
@@ -27,7 +27,7 @@ defmodule CoopSlideWeb.SlideLive.Show do
   end
 
   @impl true
-  def handle_params(%{"id" => id} = params, _, socket) do
+  def handle_params(%{"id" => id} = _params, _, socket) do
     pages = Shows.get_slide_pages(id)
 
     {:noreply,
@@ -81,7 +81,7 @@ defmodule CoopSlideWeb.SlideLive.Show do
     idx = Enum.find_index(pages, fn p -> page == p end)
 
     case {Enum.at(pages, idx), Enum.at(pages, idx + 1)} do
-      {p, nil} ->
+      {_p, nil} ->
         IO.inspect("do nothing")
 
       {p1, p2} ->
@@ -94,19 +94,19 @@ defmodule CoopSlideWeb.SlideLive.Show do
      |> assign(:pages, Shows.get_slide_pages(slide.id))}
   end
 
-  defp apply_action(socket, :add, %{"id" => id}) do
-    socket
-    |> assign(:page_title, "Edit Slide")
-    |> assign(:slide, Shows.get_slide!(id))
-    |> assign(:page, %Page{})
-  end
+  # defp apply_action(socket, :add, %{"id" => id}) do
+  #   socket
+  #   |> assign(:page_title, "Edit Slide")
+  #   |> assign(:slide, Shows.get_slide!(id))
+  #   |> assign(:page, %Page{})
+  # end
 
-  defp apply_action(socket, :edit_page, %{"id" => id, "page_id" => page_id}) do
-    socket
-    |> assign(:page_title, "Edit page")
-    |> assign(:slide, Shows.get_slide!(id))
-    |> assign(:page, Shows.get_page!(page_id))
-  end
+  # defp apply_action(socket, :edit_page, %{"id" => id, "page_id" => page_id}) do
+  #   socket
+  #   |> assign(:page_title, "Edit page")
+  #   |> assign(:slide, Shows.get_slide!(id))
+  #   |> assign(:page, Shows.get_page!(page_id))
+  # end
 
   defp page_title(:show), do: "Show Slide"
   defp page_title(:edit), do: "Edit Slide"

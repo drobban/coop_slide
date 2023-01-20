@@ -50,9 +50,14 @@ defmodule CoopSlide.Shows do
 
   """
   def create_slide(attrs \\ %{}) do
-    %Slide{}
-    |> Slide.changeset(attrs)
-    |> Repo.insert()
+    result =
+      %Slide{}
+      |> Slide.changeset(attrs)
+      |> Repo.insert()
+
+    {_, slide} = result
+    File.mkdir(CoopSlide.Documents.Upload.upload_directory(slide.id))
+    result
   end
 
   @doc """

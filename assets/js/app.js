@@ -33,23 +33,30 @@ import {Jodit} from "jodit/build/jodit.es2018.js"
 let Hooks = {};
 Hooks.Editor = {
     mounted() {
+        const slide_id = this.el.dataset.slide;
         const editor = Jodit.make('#editor', {
             "minHeight": 900,
             "maxHeight": 900,
             "minWidth": 1200,
             "maxWidth": 1200,
             "uploader": {
-                // "insertImageAsBase64URI": true
                 insertImageAsBase64URI: false,
                 url: '/uploads',
                 imagesExtensions: ['jpg', 'png', 'jpeg', 'gif'],
-
+		            prepareData: function (formdata) {
+			              formdata.append('slide_id', slide_id);
+		            }
             },
             filebrowser: {
                 createNewFolder: false,
                 deleteFolder: false,
+                showFoldersPanel: false,
                 ajax: {
                     url: '/list_uploads',
+		                prepareData: function (data) {
+                        data.slide_id = slide_id;
+                        return data;
+		                }
 			              // headers: {
 				            //     'X-CSRF-Token': document
 					          //         .querySelector('meta[name="csrf-token"]')
@@ -74,7 +81,8 @@ Hooks.Editor = {
         console.log("What!");
     },
     updated() {
-        console.log("getting here")
+        console.log("Slide id:"+this.slide_id);
+        console.log("getting here");
         val = this.editor.getEditorValue();
         if (this.el.value != val) {
             console.log("getting here!!!!");

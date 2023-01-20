@@ -16,6 +16,7 @@ defmodule CoopSlideWeb.SlideLive.ProjectComponent do
      |> assign(:page, Enum.at(pages, current))}
   end
 
+  @impl true
   def handle_event("change_slide", %{"key" => key}, socket) do
     case key do
       "ArrowRight" ->

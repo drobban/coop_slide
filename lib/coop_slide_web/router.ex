@@ -25,7 +25,8 @@ defmodule CoopSlideWeb.Router do
   scope "/", CoopSlideWeb do
     pipe_through :file_handler
 
-    resources "/uploads", UploadController, only: [:index, :new, :create, :show]
+    resources "/uploads", UploadController, only: [:index, :new, :create]
+    get "/uploads/:slide_id/:id", UploadController, :show
     post "/list_uploads", UploadController, :index
   end
 

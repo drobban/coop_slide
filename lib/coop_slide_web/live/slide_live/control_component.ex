@@ -18,6 +18,7 @@ defmodule CoopSlideWeb.SlideLive.ControlComponent do
      |> assign(:at_beginning, assigns.current == 0)}
   end
 
+  @impl true
   def handle_event("change_slide", %{"key" => key}, socket) do
     case key do
       "ArrowRight" ->

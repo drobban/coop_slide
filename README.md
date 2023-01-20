@@ -32,6 +32,12 @@ cleanup unit test
 
 add additional tests
 
+add user accounts.
+
+add permissions.
+
+add share feature.
+
 
 ## Features working at the moment
 create slides
@@ -39,3 +45,9 @@ create slides
 show slides
 
 control presentation from remote web client.
+
+upload images
+
+remove images
+
+list images

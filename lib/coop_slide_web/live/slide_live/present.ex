@@ -3,7 +3,6 @@ defmodule CoopSlideWeb.SlideLive.Present do
 
   alias Phoenix.PubSub
   alias CoopSlide.Shows
-  alias CoopSlide.Shows.Page
 
   @impl true
   def mount(_params, _session, socket) do
@@ -14,7 +13,7 @@ defmodule CoopSlideWeb.SlideLive.Present do
   end
 
   @impl true
-  def handle_params(%{"id" => id} = params, _, socket) do
+  def handle_params(%{"id" => id} = _params, _, socket) do
     slide_id = id
     pages = Shows.get_slide_pages(id)
 
@@ -27,6 +26,7 @@ defmodule CoopSlideWeb.SlideLive.Present do
      |> assign(:page_title, page_title(socket.assigns.live_action))}
   end
 
+  @impl true
   def handle_event("video_ready", id, socket) do
     slide_id = socket.assigns.slide.id
     PubSub.broadcast(CoopSlide.PubSub, "slide_id:#{slide_id}", %{video_ready: id})
