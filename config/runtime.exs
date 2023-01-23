@@ -54,7 +54,6 @@ if config_env() == :prod do
   config :coop_slide,
     uploads_directory: System.get_env("SLIDE_UPLOADS_DIRECTORY") || "/uploads"
 
-
   config :coop_slide, CoopSlideWeb.Endpoint,
     url: [host: host, port: 443, scheme: "https"],
     check_origin: [
