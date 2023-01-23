@@ -5,7 +5,7 @@ defmodule CoopSlide.Shows do
 
   import Ecto.Query, warn: false
   alias CoopSlide.Repo
-
+  alias CoopSlide.Shows.Page
   alias CoopSlide.Shows.Slide
 
   @doc """
@@ -18,8 +18,9 @@ defmodule CoopSlide.Shows do
 
   """
   def list_slides do
-    Repo.all(Slide)
-    |> Repo.preload([:pages])
+    page_order_query = from(p in Page, order_by: [asc: p.order])
+    slide_query = from(s in Slide, preload: [pages: ^page_order_query])
+    Repo.all(slide_query)
   end
 
   @doc """
@@ -107,8 +108,6 @@ defmodule CoopSlide.Shows do
   def change_slide(%Slide{} = slide, attrs \\ %{}) do
     Slide.changeset(slide, attrs)
   end
-
-  alias CoopSlide.Shows.Page
 
   @doc """
   Returns the list of pages.
