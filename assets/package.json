@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "ckeditor5-custom-build": "file:../../../npm/ckeditor5-35.4.0-8xe2s2804mwr",
     "daisyui": "^2.46.1",
     "jodit": "^3.24.2"
   }

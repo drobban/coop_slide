@@ -58,7 +58,7 @@ if config_env() == :prod do
     url: [host: host, port: 443, scheme: "https"],
     check_origin: [
       "//slide.conrock.se",
-      "//coop-slide.fly.dev"
+      # "//coop-slide.fly.dev"
     ],
     http: [
       # Enable IPv6 and bind on all interfaces.
