@@ -19,6 +19,7 @@ defmodule CoopSlide.Shows do
   """
   def list_slides do
     Repo.all(Slide)
+    |> Repo.preload([:pages])
   end
 
   @doc """

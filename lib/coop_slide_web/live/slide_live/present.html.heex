@@ -39,7 +39,7 @@
     <%= live_patch to: Routes.slide_show_path(@socket, :edit_page, @slide, page.id) do %>
     <div class="box box-border border-2 " style="width: 291px;">
       <div id={"parent_#{page.id}"} style="zoom: 0.2; -moz-transform: scale(0.2);  overflow-y: hidden;" >
-        <div style="max-width: 1452px; height: 768px; word-wrap: break-word;">
+        <div style="max-width: 1452px; height: 768px; word-wrap: break-word;" class="bg-base-100">
           <%= raw page.content %>
         </div>
       </div>

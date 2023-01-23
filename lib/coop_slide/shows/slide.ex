@@ -4,7 +4,7 @@ defmodule CoopSlide.Shows.Slide do
 
   schema "slides" do
     field :name, :string
-
+    has_many :pages, CoopSlide.Shows.Page, foreign_key: :slide_id
     timestamps()
   end
 
