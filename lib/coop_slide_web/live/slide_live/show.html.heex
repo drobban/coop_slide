@@ -1,16 +1,14 @@
-<div class="prose">
-  <h1>
-    <%= @slide.name %>
-  </h1>
-</div>
 
-<div class="grid grid-cols-5 gap-4">
- <div class="col-span-1">
-   <!-- need to implement append to shave down loading time -->
-   <!-- <div class="grid grid-cols-1 gap-10" phx-change="append"> -->
-   <div class="grid grid-cols-1 gap-10">
+
+<div class="grid grid-cols-5 gap-2">
+ <div class="col-span-1 min-w-full">
+   <div class="prose">
+     <h3>
+       <%= @slide.name %>
+     </h3>
+   </div>
+   <div class="grid grid-cols-1 gap-5 py-10 place-items-center" style="max-height: 75vh; overflow-y: scroll;">
      <%= for page <- @pages do %>
-
          <div class="indicator">
            <div class="indicator-item indicator-top indicator-end">
              <button class="btn btn-xs btn-square btn-warning" phx-click="delete" phx-value-id={page.id}>
@@ -60,28 +58,26 @@
            </div>
          </div>
     <% end %>
-    <div class="col-span-1">
-      <div class="grid grid-cols-5 gap-4">
-        <%= live_patch to: Routes.slide_show_path(@socket, :add, @slide),
+   </div>
+   <div class="col-span-1 py-10">
+     <div class="grid grid-cols-5 gap-4">
+       <%= live_patch to: Routes.slide_show_path(@socket, :add, @slide),
             class: "btn btn-sm btn-square btn-primary" do %>
-          <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
-               xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15">
-            </path>
-          </svg>
-        <% end %>
-        <div class="col-span-2">
-        <%= live_redirect "Projection", to: Routes.slide_present_path(@socket, :projector, @slide),
+       <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+         <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15">
+         </path>
+       </svg>
+       <% end %>
+       <div class="col-span-2">
+         <%= live_redirect "Projection", to: Routes.slide_present_path(@socket, :projector, @slide),
             class: "btn btn-sm btn-primary" %>
-        </div>
-        <%= live_redirect "Back", to: Routes.slide_index_path(@socket, :index), class: "btn btn-sm btn-warning" %>
-      </div>
-    </div>
-
+       </div>
+       <%= live_redirect "Back", to: Routes.slide_index_path(@socket, :index), class: "btn btn-sm btn-warning" %>
+     </div>
    </div>
  </div>
  <div class="col-span-4">
-
    <%= if @live_action in [:add] do %>
     <.live_component
       module={CoopSlideWeb.SlideLive.AddComponent}
