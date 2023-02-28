@@ -11,9 +11,9 @@
   </.modal>
 <% end %>
 
-<div class="grid grid-cols-5 gap-10">
+<div class="grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-10">
   <%= for slide <- @slides do %>
-      <div class="card card-compact w-45 bg-base-100 shadow-xl">
+      <div class="card card-compact w-45 max-w-45 bg-base-100 shadow-xl">
         <%= live_redirect to: Routes.slide_show_path(@socket, :show, slide) do %>
         <figure class="pt-5">
           <div class="box box-border border-2" id={"link_#{slide.id}"}>

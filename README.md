@@ -17,10 +17,10 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
   * Docs: https://hexdocs.pm/phoenix
   * Forum: https://elixirforum.com/c/phoenix-forum
   * Source: https://github.com/phoenixframework/phoenix
-  
- 
+
+
 # Dev info
-  
+
 ## NPM deps
 npm i daisyui
 npm install --save jodit
@@ -29,6 +29,9 @@ https://github.com/xdan/jodit/tree/master/src/modules/file-browser - jodit docum
 
 ## GFX deps
 https://heroicons.dev/
+
+## system deps
+sudo jexec 5 pkg install postgresql15-contrib-15.1
 
 ## TODO
 
@@ -55,3 +58,8 @@ upload images
 remove images
 
 list images
+
+
+
+
+mix tailwind.install https://people.freebsd.org/~dch/pub/tailwind/v3.2.6/tailwindcss-freebsd-x64

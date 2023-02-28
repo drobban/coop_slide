@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "daisyui": "^2.46.1",
-    "jodit": "^3.24.2"
+    "daisyui": "^2.51.2",
+    "jodit": "^3.24.5"
   }
 }
