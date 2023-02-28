@@ -28,7 +28,8 @@ defmodule CoopSlideWeb.SlideLive.ProjectComponent do
       "Escape" ->
         {:noreply,
          socket
-         |> push_redirect(to: socket.assigns.return_to)}
+         |> redirect(to: socket.assigns.return_to)
+        }
 
       _ ->
         {:noreply, socket}
