@@ -37,6 +37,11 @@ defmodule CoopSlideWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+
+  end
+
+  scope "/", CoopSlideWeb do
+    pipe_through [:browser, :require_authenticated_user]
     live "/slides", SlideLive.Index, :index
     live "/slides/new", SlideLive.Index, :new
     live "/slides/:id/edit", SlideLive.Index, :edit
@@ -102,8 +107,8 @@ defmodule CoopSlideWeb.Router do
     post "/users/log_in", UserSessionController, :create
     get "/users/reset_password", UserResetPasswordController, :new
     post "/users/reset_password", UserResetPasswordController, :create
-    get "/users/reset_password/:token", UserResetPasswordController, :edit
-    put "/users/reset_password/:token", UserResetPasswordController, :update
+    # get "/users/reset_password/:token", UserResetPasswordController, :edit
+    # put "/users/reset_password/:token", UserResetPasswordController, :update
   end
 
   scope "/", CoopSlideWeb do
@@ -111,16 +116,16 @@ defmodule CoopSlideWeb.Router do
 
     get "/users/settings", UserSettingsController, :edit
     put "/users/settings", UserSettingsController, :update
-    get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
+    # get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
   end
 
   scope "/", CoopSlideWeb do
     pipe_through [:browser]
 
     delete "/users/log_out", UserSessionController, :delete
-    get "/users/confirm", UserConfirmationController, :new
-    post "/users/confirm", UserConfirmationController, :create
-    get "/users/confirm/:token", UserConfirmationController, :edit
-    post "/users/confirm/:token", UserConfirmationController, :update
+    # get "/users/confirm", UserConfirmationController, :new
+    # post "/users/confirm", UserConfirmationController, :create
+    # get "/users/confirm/:token", UserConfirmationController, :edit
+    # post "/users/confirm/:token", UserConfirmationController, :update
   end
 end

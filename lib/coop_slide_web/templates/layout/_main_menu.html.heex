@@ -1,0 +1,8 @@
+<div class="navbar bg-base-100 mb-10 shadow sticky top-0 z-30 flex h-16 w-full bg-opacity-90 backdrop-blur transition-all duration-100 justify-start">
+  <%= render "_mini_content.html", assigns %>
+  <%= link to: Routes.page_path(@conn, :index),
+      class: "btn btn-ghost normal-case text-xl" do %>
+    CoopSlide
+  <% end %>
+  <%= render "_content.html", assigns %>
+</div>
