@@ -35,6 +35,18 @@ defmodule CoopSlideWeb.SlideLive.Present do
 
     PubSub.subscribe(CoopSlide.PubSub, "slide_id:#{slide_id}_user:#{user_id}")
 
+    case socket.assigns.live_action do
+      :controller ->
+        PubSub.broadcast(
+          CoopSlide.PubSub,
+          "slide_id:#{slide_id}_user:#{user_id}",
+          :get_current_slide
+        )
+
+      _ ->
+        nil
+    end
+
     {:noreply,
      socket
      |> assign(:pages, pages)
@@ -65,6 +77,40 @@ defmodule CoopSlideWeb.SlideLive.Present do
 
       _ ->
         IO.inspect("Do nothing!")
+        {:noreply, socket}
+    end
+  end
+
+  defp handle_command(:get_current_slide, socket) do
+    slide_id = socket.assigns.slide.id
+    user_id = socket.assigns.user_id
+
+    case socket.assigns.live_action do
+      :projector ->
+        IO.inspect("Message recieved")
+        PubSub.broadcast(
+          CoopSlide.PubSub,
+          "slide_id:#{slide_id}_user:#{user_id}",
+          %{current_slide: socket.assigns.current}
+        )
+
+      _ ->
+        nil
+    end
+
+    {:noreply, socket}
+  end
+
+  defp handle_command(%{current_slide: current}, socket) do
+
+    case socket.assigns.live_action do
+      :projector ->
+        {:noreply, socket}
+      :controller ->
+        IO.inspect("Setting currrent to: #{current}")
+        {:noreply, socket |> assign(:current, current)}
+
+      _ ->
         {:noreply, socket}
     end
   end
