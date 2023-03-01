@@ -3,11 +3,25 @@ defmodule CoopSlideWeb.SlideLive.Present do
 
   alias Phoenix.PubSub
   alias CoopSlide.Shows
+  alias CoopSlide.Accounts
 
   @impl true
-  def mount(_params, _session, socket) do
+  def mount(_params, session, socket) do
+    # %{"user_token" => user_token}
+    user_token = Map.get(session, "user_token")
+    IO.inspect(user_token)
+
+    user_id =
+      if user_token do
+        Accounts.get_user_by_session_token(user_token)
+        |> Map.get(:id)
+      else
+        nil
+      end
+
     {:ok,
      socket
+     |> assign(:user_id, user_id)
      |> assign(:current, 0)
      |> assign(:video, nil)}
   end
@@ -17,7 +31,9 @@ defmodule CoopSlideWeb.SlideLive.Present do
     slide_id = id
     pages = Shows.get_slide_pages(id)
 
-    PubSub.subscribe(CoopSlide.PubSub, "slide_id:#{slide_id}")
+    user_id = socket.assigns.user_id
+
+    PubSub.subscribe(CoopSlide.PubSub, "slide_id:#{slide_id}_user:#{user_id}")
 
     {:noreply,
      socket
@@ -28,8 +44,13 @@ defmodule CoopSlideWeb.SlideLive.Present do
 
   @impl true
   def handle_event("video_ready", id, socket) do
+    user_id = socket.assigns.user_id
     slide_id = socket.assigns.slide.id
-    PubSub.broadcast(CoopSlide.PubSub, "slide_id:#{slide_id}", %{video_ready: id})
+
+    PubSub.broadcast(CoopSlide.PubSub, "slide_id:#{slide_id}_user:#{user_id}", %{
+      video_ready: id
+    })
+
     {:noreply, socket}
   end
 

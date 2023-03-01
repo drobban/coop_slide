@@ -51,16 +51,18 @@ defmodule CoopSlideWeb.SlideLive.ControlComponent do
   end
 
   def handle_event("video_toggle", _payload, socket) do
+    user_id = socket.assigns.user_id
     slide_id = socket.assigns.slide.id
-    PubSub.broadcast(CoopSlide.PubSub, "slide_id:#{slide_id}", %{project_cmd: :toggle_player})
+    PubSub.broadcast(CoopSlide.PubSub, "slide_id:#{slide_id}_user:#{user_id}", %{project_cmd: :toggle_player})
     {:noreply, socket}
   end
 
   defp change_slide(socket, :forward) do
+    user_id = socket.assigns.user_id
     current = socket.assigns.current + 1
     pages = socket.assigns.pages
     slide_id = socket.assigns.slide.id
-    PubSub.broadcast(CoopSlide.PubSub, "slide_id:#{slide_id}", %{cmd: :forward})
+    PubSub.broadcast(CoopSlide.PubSub, "slide_id:#{slide_id}_user:#{user_id}", %{cmd: :forward})
 
     case Enum.at(pages, current) do
       %CoopSlide.Shows.Page{} = page ->
@@ -78,11 +80,12 @@ defmodule CoopSlideWeb.SlideLive.ControlComponent do
   end
 
   defp change_slide(socket, :backward) do
+    user_id = socket.assigns.user_id
     current = socket.assigns.current - 1
     pages = socket.assigns.pages
 
     slide_id = socket.assigns.slide.id
-    PubSub.broadcast(CoopSlide.PubSub, "slide_id:#{slide_id}", %{cmd: :backward})
+    PubSub.broadcast(CoopSlide.PubSub, "slide_id:#{slide_id}_user:#{user_id}", %{cmd: :backward})
 
     case Enum.at(pages, current) do
       %CoopSlide.Shows.Page{} = page when current > -1 ->

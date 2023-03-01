@@ -9,6 +9,7 @@
       slide={@slide}
       return_to={Routes.slide_present_path(@socket, :present, @slide)}
     />
+
 </div>
 <% end %>
 <%= if @live_action in [:controller] do %>
@@ -20,6 +21,7 @@
       action={@live_action}
       slide={@slide}
       video={@video}
+      user_id={@user_id || nil}
       current={@current || 0}
       return_to={Routes.slide_present_path(@socket, :present, @slide)}
     />
